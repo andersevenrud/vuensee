@@ -78,6 +78,11 @@ Copy `.env.example` to `.env` and customize to your liking. Then build the solut
 
 > You have to restart the development environment after changing this file.
 
+With the URL settings feature enabled (default) you can also pass settings using
+URL query parameters:
+
+`?settingsName=value&someOtherSetting=123`
+
 ## Connection
 
 To set up a connection you'll need the following on the remote machine:

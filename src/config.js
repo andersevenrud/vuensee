@@ -11,6 +11,10 @@ import {
 
 const env = { ...import.meta.env }
 
+const params = Object.fromEntries(
+  new URLSearchParams(window.location.search.substring(1))
+)
+
 const fromFeatureEnv = k => env[`VITE_ENABLE_${k.toUpperCase()}`]
 const fromSettingsEnv = k => env[`VITE_SETTINGS_${camelToSnake(k)}`]
 
@@ -65,6 +69,16 @@ const features = Object.fromEntries(
   featureMap
     .map(k => [k, featureCheck(fromFeatureEnv(k))])
 )
+
+if (featureCheck(fromFeatureEnv('urlSettings'))) {
+  const overrideSettings = Object.fromEntries(
+    settingsMap
+      .map(([k, fn]) => [k, fn(params[k])])
+      .filter(([, v]) => v !== undefined)
+  )
+
+  Object.assign(defaultSettings, overrideSettings)
+}
 
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
