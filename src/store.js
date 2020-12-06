@@ -48,6 +48,7 @@ const _state = reactive({
   },
 
   settings: {
+    autoconnect: false,
     username: '',
     password: '',
     bell: true,

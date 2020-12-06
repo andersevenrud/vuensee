@@ -34,6 +34,7 @@ const parseString = v =>
   valueCheck(v, undefined, () => v.trim())
 
 const settingsMap = [
+  ['autoconnect', parseBoolean],
   ['bell', parseBoolean],
   ['sharedMode', parseBoolean],
   ['viewOnly', parseBoolean],

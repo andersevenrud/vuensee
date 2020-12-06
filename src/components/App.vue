@@ -155,6 +155,12 @@ export default {
     return store.state
   },
 
+  mounted() {
+    if (this.settings.autoconnect) {
+      this.onConnectRequest()
+    }
+  },
+
   methods: {
     onSettingsToggle() {
       store.toggleSettings()
