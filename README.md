@@ -78,10 +78,33 @@ Copy `.env.example` to `.env` and customize to your liking. Then build the solut
 
 > You have to restart the development environment after changing this file.
 
-With the URL settings feature enabled (default) you can also pass settings using
-URL query parameters:
+Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 
-`?settingsName=value&someOtherSetting=123`
+| Environment variable            | URL parameter    | Type      | Default      |
+| ------------------------------- | ---------------- | --------- | ------------ |
+| `VITE_TITLE`                    |                  | String    | `vuensee`    |
+| `VITE_ENABLE_SETTINGS`          |                  | Boolean   | `true`       |
+| `VITE_ENABLE_CLIPBOARD`         |                  | Boolean   | `true`       |
+| `VITE_ENABLE_FULLSCREEN`        |                  | Boolean   | `true`       |
+| `VITE_ENABLE_POWER`             |                  | Boolean   | `true`       |
+| `VITE_ENABLE_KEYS`              |                  | Boolean   | `true`       |
+| `VITE_ENABLE_URL_SETTINGS`      |                  | Boolean   | `true`       |
+| `VITE_SETTINGS_AUTOCONNECT`     | `autoconnect`    | Boolean   | `false`      |
+| `VITE_SETTINGS_BELL`            | `bell`           | Boolean   | `true`       |
+| `VITE_SETTINGS_SHARED_MODE`     | `sharedMode`     | Boolean   | `true`       |
+| `VITE_SETTINGS_VIEW_ONLY`       | `viewOnly`       | Boolean   | `false`      |
+| `VITE_SETTINGS_CLIP_TO_WINDOW`  | `clipToWindow`   | Boolean   | `false`      |
+| `VITE_SETTINGS_SCALING_MODE`    | `scalingMode`    | String    | `off`        |
+| `VITE_SETTINGS_QUALITY`         | `quality`        | Number    | `6`          |
+| `VITE_SETTINGS_COMPRESSION`     | `compression`    | Number    | `2`          |
+| `VITE_SETTINGS_RECONNECT`       | `reconnect`      | Boolean   | `false`      |
+| `VITE_SETTINGS_RECONNECT_DELAY` | `reconnectDelay` | Number    | `5000`       |
+| `VITE_SETTINGS_DOT_CURSOR`      | `dotCursor`      | Boolean   | `false`      |
+| `VITE_SETTINGS_HOSTNAME`        | `hostname`       | String    | Auto         |
+| `VITE_SETTINGS_PATH`            | `path`           | String    | `websockify` |
+| `VITE_SETTINGS_REPEATER_ID`     | `repeaterId`     | String    |              |
+| `VITE_SETTINGS_PORT`            | `port`           | Number    | Auto         |
+| `VITE_SETTINGS_SSL`             | `ssl`            | Boolean   | Auto         |
 
 ## Connection
 
