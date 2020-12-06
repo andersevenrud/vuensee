@@ -1,0 +1,14 @@
+version: '3.5'
+services:
+  vuensee:
+    image: "node:14-alpine"
+    command: "./entrypoint.sh"
+    working_dir: /usr/src/vuensee
+    env_file:
+      - "./.env"
+    volumes:
+      - "./:/usr/src/vuensee"
+    ports:
+      - "${DOCKER_DEV_PORT:-15000}:${DOCKER_DEV_PORT:-15000}"
+    environment:
+      DOCKER_DEV_PORT: ${DOCKER_DEV_PORT:-15000}
