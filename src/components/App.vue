@@ -55,6 +55,8 @@
       />
     </Panel>
 
+    <Logo />
+
     <NoVNC
       :connected="connected"
       :connecting="connecting"
@@ -115,6 +117,7 @@ import Settings from './Settings.vue'
 import Login from './Login.vue'
 import Messages from './Messages.vue'
 import NoVNC from './NoVNC.vue'
+import Logo from './Logo.vue'
 
 let _reconnectTimeout
 
@@ -130,7 +133,8 @@ export default {
     Settings,
     Login,
     Messages,
-    NoVNC
+    NoVNC,
+    Logo
   },
 
   setup() {

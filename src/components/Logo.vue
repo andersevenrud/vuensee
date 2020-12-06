@@ -1,0 +1,37 @@
+<!--
+ vuensee
+ @author Anders Evenrud <andersevenrud@gmail.com>
+ @license MIT
+-->
+<template>
+  <div :class="$style.logo">
+    {{ title }}
+  </div>
+</template>
+
+<style module>
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: var(--app-logo-text-color);
+  font-size: var(--app-logo-font-size);
+  text-shadow: var(--app-logo-text-shadow);
+  opacity: 0.8;
+}
+</style>
+
+<script>
+import config from '../config'
+
+export default {
+  name: 'Logo',
+  data() {
+    return {
+      title: config.title
+    }
+  }
+}
+</script>

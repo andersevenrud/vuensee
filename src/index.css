@@ -16,6 +16,10 @@
   --app-text-color: #eee;
   --app-background-color: #222;
 
+  --app-logo-text-color: currentColor;
+  --app-logo-text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
+  --app-logo-font-size: 4rem;
+
   --app-panel-background-color: #525252;
   --app-panel-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.5);
 
