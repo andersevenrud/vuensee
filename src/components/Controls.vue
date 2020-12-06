@@ -34,7 +34,7 @@
     </button>
 
     <button
-      v-if="features.keys"
+      v-if="features.keys && !viewOnly"
       type="button"
       :title="t('controls.keys')"
       :disabled="!connected"
@@ -56,7 +56,7 @@
     </button>
 
     <button
-      v-if="features.clipboard"
+      v-if="features.clipboard && !viewOnly"
       type="button"
       :title="t('controls.clipboard')"
       :disabled="!connected"
@@ -122,7 +122,7 @@
     </template>
 
     <button
-      v-if="features.power"
+      v-if="features.power && !viewOnly"
       type="button"
       :title="t('controls.power')"
       :disabled="connecting || !power"
@@ -211,7 +211,6 @@
 <style module>
 .controls {
   display: flex;
-  justify-content: space-around;
 }
 
 .controls button {
@@ -246,6 +245,10 @@ export default {
       required: true
     },
     power: {
+      type: Boolean,
+      required: true
+    },
+    viewOnly: {
       type: Boolean,
       required: true
     }

@@ -103,7 +103,7 @@
                   v-for="([k, v]) in scalingModes"
                   :key="k"
                   :selected="k === settings.scalingMode"
-                  :value="v"
+                  :value="k"
                 >
                   {{ v }}
                 </option>
@@ -323,6 +323,7 @@ const scalingModes = [
 ]
 
 const alwaysAvailable = [
+  'viewOnly',
   'bell',
   'scalingMode',
   'quality',

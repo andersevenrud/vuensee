@@ -24,6 +24,7 @@ export const client = {
     this.rfb.qualityLevel = settings.quality
     this.rfb.compressionLevel = settings.compression
     this.rfb.showDotCursor = settings.dotCursor
+    this.rfb.viewOnly = settings = settings.viewOnly
   },
 
   hasPowerCapabilities() {

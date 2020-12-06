@@ -15,6 +15,7 @@
         :reconnecting="reconnecting"
         :fullscreen="fullscreen"
         :power="capabilities.power"
+        :view-only="settings.viewOnly"
         @settings="onSettingsToggle"
         @connect="onConnectRequest"
         @disconnect="onDisconnectRequest"
