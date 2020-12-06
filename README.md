@@ -15,6 +15,10 @@ Runs on any modern browser.
 
 Either Docker or Node 14+ is required for building and development.
 
+VNC connection must support WebSockets. See the
+[noVNC documentation](https://github.com/novnc/noVNC#server-requirements)
+for more information.
+
 ## Usage
 
 There are three ways to build and run this applocation:
@@ -105,16 +109,6 @@ Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 | `VITE_SETTINGS_REPEATER_ID`     | `repeaterId`     | String    |              |
 | `VITE_SETTINGS_PORT`            | `port`           | Number    | Auto         |
 | `VITE_SETTINGS_SSL`             | `ssl`            | Boolean   | Auto         |
-
-## Connection
-
-To set up a connection you'll need the following on the remote machine:
-
-> You can read all about the requirements and setup in the noVNC `README` file.
-
-1. A VNC Server
-2. Websockify to communicate between the browser and VNC server
-3. Port forwarding of websockify port (if you plan connecting via the internet)
 
 ## License
 
