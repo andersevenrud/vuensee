@@ -55,7 +55,9 @@
       />
     </Panel>
 
-    <Logo />
+    <Logo
+      :title="title"
+    />
 
     <div
       ref="view"
@@ -100,19 +102,19 @@ import {
   exitFullscreen,
   getFullscreenElement,
   playBell
-} from '../utils'
-import { client } from '../novnc'
+} from '../utils/dom'
+import { client } from '../utils/novnc'
 import * as store from '../store'
 import config from '../config'
-import Panel from './Panel.vue'
-import Controls from './Controls.vue'
-import Power from './Power.vue'
-import Keys from './Keys.vue'
-import Clipboard from './Clipboard.vue'
-import Settings from './Settings.vue'
-import Login from './Login.vue'
-import Messages from './Messages.vue'
-import Logo from './Logo.vue'
+import Panel from './layout/Panel.vue'
+import Controls from './layout/Controls.vue'
+import Power from './layout/Power.vue'
+import Keys from './layout/Keys.vue'
+import Clipboard from './layout/Clipboard.vue'
+import Settings from './layout/Settings.vue'
+import Login from './layout/Login.vue'
+import Messages from './layout/Messages.vue'
+import Logo from './layout/Logo.vue'
 
 let _reconnectTimeout
 
@@ -146,6 +148,7 @@ export default {
 
     return {
       features: config.features,
+      title: config.title,
       panel,
       view,
       t

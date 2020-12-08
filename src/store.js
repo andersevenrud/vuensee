@@ -165,6 +165,10 @@ export const connectionDeactivated = (reconnecting = false) => Object.assign(_st
   disconnecting: false,
   connecting: false,
   connected: false,
+  settings: {
+    ..._state.settings,
+    password: reconnecting ? _state.password : ''
+  },
   capabilities: {
     ...initialCapabilities
   },

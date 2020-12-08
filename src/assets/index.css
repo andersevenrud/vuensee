@@ -1,0 +1,69 @@
+/*
+ * vuensee
+ * @author Anders Evenrud <andersevenrud@gmail.com>
+ * @license MIT
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color: var(--app-text-color);
+  font-size: var(--app-font-size-normal);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow: hidden;
+  background-color: var(--app-background-color);
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  html {
+    font-size: var(--app-font-size-small);
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: var(--app-font-size-large);
+  }
+}
+
+@media (min-width: 3840px) {
+  html {
+    font-size: var(--app-font-size-xlarge);
+  }
+}
+
+/* Resets */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  box-sizing: border-box;
+}
+
+input:disabled,
+select:disabled,
+button:disabled {
+  cursor: not-allowed;
+}
+
+input:not(:disabled),
+select:not(:disabled),
+textarea:not(:disabled),
+button:not(:disabled) {
+  color: currentColor;
+}
+
+button {
+  cursor: pointer;
+}

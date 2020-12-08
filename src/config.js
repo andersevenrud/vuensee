@@ -5,33 +5,15 @@
  */
 
 import {
-  camelToSnake,
-  isBoolean
-} from './utils'
-
-const env = { ...import.meta.env }
-
-const params = Object.fromEntries(
-  new URLSearchParams(window.location.search.substring(1))
-)
-
-const fromFeatureEnv = k => env[`VITE_ENABLE_${k.toUpperCase()}`]
-const fromSettingsEnv = k => env[`VITE_SETTINGS_${camelToSnake(k)}`]
-
-const valueCheck = (v, defaultV, fn) => typeof v === 'string'
-  ? fn(v)
-  : defaultV
-
-const featureCheck = v => valueCheck(v, true, isBoolean)
-
-const parseBoolean = v =>
-  valueCheck(v, undefined, () => isBoolean)
-
-const parseNumber = v =>
-  valueCheck(v, undefined, () => parseInt(v, 10))
-
-const parseString = v =>
-  valueCheck(v, undefined, () => v.trim())
+  readFeatures,
+  readSettings,
+  readUrlSettings,
+  parseBoolean,
+  parseNumber,
+  parseString,
+  featureCheck,
+  fromFeatureEnv
+} from './utils/config'
 
 const settingsMap = [
   ['autoconnect', parseBoolean],
@@ -60,29 +42,17 @@ const featureMap = [
   'keys'
 ]
 
-const defaultSettings = Object.fromEntries(
-  settingsMap
-    .map(([k, fn]) => [k, fn(fromSettingsEnv(k))])
-    .filter(([, v]) => v !== undefined)
-)
-
-const features = Object.fromEntries(
-  featureMap
-    .map(k => [k, featureCheck(fromFeatureEnv(k))])
-)
-
-if (featureCheck(fromFeatureEnv('urlSettings'))) {
-  const overrideSettings = Object.fromEntries(
-    settingsMap
-      .map(([k, fn]) => [k, fn(params[k])])
-      .filter(([, v]) => v !== undefined)
-  )
-
-  Object.assign(defaultSettings, overrideSettings)
-}
+const features = readFeatures(featureMap)
+const defaultSettings = readSettings(settingsMap)
+const overrideSettings = featureCheck(fromFeatureEnv('urlSettings'))
+  ? readUrlSettings(settingsMap)
+  : {}
 
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
   features,
-  defaultSettings
+  defaultSettings: {
+    ...defaultSettings,
+    ...overrideSettings
+  }
 }

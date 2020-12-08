@@ -35,6 +35,12 @@ export default {
       reset: 'Reset'
     },
 
+    scalingModes: {
+      off: 'None',
+      scale: 'Local scaling',
+      remote: 'Remote scaling'
+    },
+
     settings: {
       session: {
         header: 'Session',

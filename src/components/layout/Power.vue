@@ -5,14 +5,13 @@
 -->
 <template>
   <div :class="$style.power">
-    <button
+    <Button
       v-for="button in buttons"
       :key="button"
-      type="button"
       @click="$emit(button)"
     >
       {{ t(`power.${button}`) }}
-    </button>
+    </Button>
   </div>
 </template>
 
@@ -25,8 +24,6 @@
 }
 
 .power button {
-  box-sizing: border-box;
-  padding: var(--app-margin-half);
   margin: var(--app-margin-quarter);
   display: block;
   width: 100%;

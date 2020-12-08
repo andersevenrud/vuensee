@@ -7,18 +7,15 @@
   <div :class="$style.clipboard">
     <form @submit.prevent>
       <div>
-        <textarea
+        <Textarea
           :value="current"
           @change="$emit('update', $event.target.value)"
         />
       </div>
       <footer>
-        <button
-          type="button"
-          @click="$emit('clear')"
-        >
+        <Button @click="$emit('clear')">
           {{ t('clipboard.clear') }}
-        </button>
+        </Button>
       </footer>
     </form>
   </div>
@@ -27,13 +24,6 @@
 <style module>
 .clipboard {
   padding: var(--app-margin-half);
-}
-
-.clipboard textarea {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  resize: none;
 }
 
 .clipboard footer {

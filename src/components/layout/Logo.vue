@@ -24,13 +24,12 @@
 </style>
 
 <script>
-import config from '../config'
-
 export default {
   name: 'Logo',
-  data() {
-    return {
-      title: config.title
+  props: {
+    title: {
+      type: String,
+      required: true
     }
   }
 }

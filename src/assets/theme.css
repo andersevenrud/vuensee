@@ -1,0 +1,40 @@
+/*
+ * vuensee
+ * @author Anders Evenrud <andersevenrud@gmail.com>
+ * @license MIT
+ */
+:root {
+  --app-margin: 1rem;
+  --app-margin-half: 0.5rem;
+  --app-margin-quarter: 0.25rem;
+
+  --app-font-size-small: 14px;
+  --app-font-size-normal: 16px;
+  --app-font-size-large: 18px;
+  --app-font-size-xlarge: 20px;
+
+  --app-text-color: #eee;
+  --app-background-color: #222;
+
+  --app-logo-text-color: currentColor;
+  --app-logo-text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
+  --app-logo-font-size: 4rem;
+
+  --app-panel-background-color: #525252;
+  --app-panel-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.5);
+
+  --app-accordian-background-color: #414141;
+
+  --app-input-border: 2px solid #222;
+  --app-input-background-color: #313131;
+  --app-input-disabled-background-color: #333;
+
+  --app-message-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  --app-message-border-radius: 0.25rem;
+  --app-message-info-background-color: #65ac69;
+  --app-message-info-text-color: currentColor;
+  --app-message-warn-background-color: #e29c31;
+  --app-message-warn-text-color: currentColor;
+  --app-message-error-background-color: #f44336;
+  --app-message-error-text-color: currentColor;
+}

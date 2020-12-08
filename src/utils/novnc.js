@@ -6,6 +6,12 @@
 import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 
+export const scalingModes = [
+  'off',
+  'scale',
+  'remote'
+]
+
 export const keyMappings = {
   esc: [KeyTable.XK_Escape, 'Escape'],
   tab: [KeyTable.XK_Tab, 'Tab'],

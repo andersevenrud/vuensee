@@ -8,14 +8,14 @@
     <div
       v-for="([n, k]) in buttons"
       :key="k"
-      :class="style(k)"
+      :class="$style.button"
     >
-      <button
-        type="button"
+      <Button
+        :active="active[k]"
         @click="$emit(n, k)"
       >
         {{ t(`keys.${k}`) }}
-      </button>
+      </Button>
     </div>
   </div>
 </template>
@@ -35,14 +35,8 @@
 }
 
 .button button {
-  box-sizing: border-box;
-  padding: var(--app-margin-half);
   display: block;
   width: 100%;
-}
-
-.active button {
-  background: var(--app-background-color);
 }
 </style>
 
@@ -78,17 +72,6 @@ export default {
     return {
       t,
       buttons
-    }
-  },
-
-  methods: {
-    style(k) {
-      const styles = [this.$style.button]
-      if (this.active[k]) {
-        styles.push(this.$style.active)
-      }
-
-      return styles
     }
   }
 }

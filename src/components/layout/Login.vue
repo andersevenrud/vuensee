@@ -6,20 +6,19 @@
 <template>
   <div :class="$style.login">
     <form @submit.prevent="onSubmit">
-      <div :class="$style.password">
-        <input
-          ref="input"
-          v-model="password"
-          type="password"
-          :placeholder="t('login.passwordPlaceholder')"
-        >
-      </div>
+      <Input
+        v-model="password"
+        type="password"
+        :autofocus="true"
+        :placeholder="t('login.passwordPlaceholder')"
+      />
+
       <div :class="$style.button">
-        <button
+        <Button
           type="submit"
         >
           {{ t('login.submit') }}
-        </button>
+        </Button>
       </div>
     </form>
   </div>
@@ -48,37 +47,25 @@
 </style>
 
 <script>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'Login',
 
-  props: {
-  },
-
   emits: [
     'submit'
   ],
 
-  setup() {
+  setup(_, { emit }) {
+    const password = ref('')
     const { t } = useI18n()
-    return { t }
-  },
 
-  data() {
     return {
-      password: ''
-    }
-  },
-
-  mounted() {
-    this.$refs.input.focus()
-  },
-
-  methods: {
-    onSubmit() {
-      this.$emit('submit', {
-        password: this.password
+      t,
+      password,
+      onSubmit: () => emit('submit', {
+        password: password.value
       })
     }
   }
