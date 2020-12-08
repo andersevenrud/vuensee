@@ -29,17 +29,17 @@ There are three ways to build and run this applocation:
 
 ### Docker Image
 
-To run a pre-built production build using docker:
-
-```shell
-docker run -p 8080:80 docker.pkg.github.com/andersevenrud/vuensee/vuensee:latest
-```
-
-Or to build your own production image:
+Build and run your own production image:
 
 ```shell
 docker build -t vuensee:custom .
 docker run -p 8080:80 vuensee:custom
+```
+
+Or run a pre-built docker image (same as demo):
+
+```shell
+docker run -p 8080:80 docker.pkg.github.com/andersevenrud/vuensee/vuensee:latest
 ```
 
 ### Docker Compose
