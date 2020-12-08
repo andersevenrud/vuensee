@@ -57,20 +57,9 @@
 
     <Logo />
 
-    <NoVNC
-      :connected="connected"
-      :connecting="connecting"
-      :disconnecting="disconnecting"
-      :options="settings"
-      @disconnected="onDisconnected"
-      @connected="onConnected"
-      @credentialsrequired="onCredentialsRequired"
-      @securityfailure="onSecurityFailure"
-      @desktopname="onDesktopName"
-      @bell="onBell"
-      @capabilities="onCapabilities"
-      @clipboard="onClipboard"
-      @error="onError"
+    <div
+      ref="view"
+      :class="$style.vnc"
     />
 
     <Login
@@ -89,6 +78,13 @@
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+}
+
+.vnc {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
@@ -116,7 +112,6 @@ import Clipboard from './Clipboard.vue'
 import Settings from './Settings.vue'
 import Login from './Login.vue'
 import Messages from './Messages.vue'
-import NoVNC from './NoVNC.vue'
 import Logo from './Logo.vue'
 
 let _reconnectTimeout
@@ -133,13 +128,13 @@ export default {
     Settings,
     Login,
     Messages,
-    NoVNC,
     Logo
   },
 
   setup() {
     const { t } = useI18n()
     const panel = ref(null)
+    const view = ref(null)
 
     const onFullscreenChange = () => store.updateFullscreen(
       !!getFullscreenElement()
@@ -152,6 +147,7 @@ export default {
     return {
       features: config.features,
       panel,
+      view,
       t
     }
   },
@@ -175,6 +171,10 @@ export default {
       store.updateSettings({
         [key]: value
       })
+
+      if (this.connected) {
+        client.applySettings(this.settings)
+      }
     },
 
     onError(message) {
@@ -252,12 +252,27 @@ export default {
     onConnectRequest() {
       store.addMessage(this.t('messages.connecting'))
       store.connectionActivate()
+
+      client.connect({
+        root: this.view,
+        options: this.settings,
+        bindings: {
+          disconnect: this.onDisconnected,
+          connect: this.onConnected,
+          credentialsrequired: this.onCredentialsRequired,
+          securityfailure: this.onSecurityFailure,
+          desktopname: this.onDesktopName,
+          bell: this.onBell,
+          capabilities: this.onCapabilities,
+          clipboard: this.onClipboard
+        }
+      })
     },
 
     onDisconnectRequest() {
       clearTimeout(_reconnectTimeout)
-
       store.connectionDeactivate()
+      client.disconnect()
     },
 
     onMaximize() {

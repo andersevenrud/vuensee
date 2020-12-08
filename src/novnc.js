@@ -85,7 +85,7 @@ export const client = {
 
   connect({
     root,
-    emitter,
+    bindings,
     options: {
       username,
       password,
@@ -107,14 +107,14 @@ export const client = {
       }
     })
 
-    this.rfb.addEventListener('disconnect', e => emitter('disconnected', e))
-    this.rfb.addEventListener('connect', e => emitter('connected', e))
-    this.rfb.addEventListener('credentialsrequired', e => emitter('credentialsrequired', e))
-    this.rfb.addEventListener('securityfailure', e => emitter('securityfailure', e))
-    this.rfb.addEventListener('desktopname', e => emitter('desktopname', e))
-    this.rfb.addEventListener('bell', e => emitter('bell', e))
-    this.rfb.addEventListener('capabilities', e => emitter('capabilities', e))
-    this.rfb.addEventListener('clipboard', e => emitter('clipboard', e))
+    this.rfb.addEventListener('disconnect', e => bindings.disconnect(e))
+    this.rfb.addEventListener('connect', e => bindings.connect(e))
+    this.rfb.addEventListener('credentialsrequired', e => bindings.credentialsrequired(e))
+    this.rfb.addEventListener('securityfailure', e => bindings.securityfailure(e))
+    this.rfb.addEventListener('desktopname', e => bindings.desktopname(e))
+    this.rfb.addEventListener('bell', e => bindings.bell(e))
+    this.rfb.addEventListener('capabilities', e => bindings.capabilities(e))
+    this.rfb.addEventListener('clipboard', e => bindings.clipboard(e))
 
     this.applySettings(settings)
 
