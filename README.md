@@ -21,7 +21,9 @@ for more information.
 
 ## Usage
 
-There are three ways to build and run this applocation:
+There are three ways to build and run this application:
+
+> Or you can [download a release](https://github.com/andersevenrud/vuensee/releases) from Github.
 
 * [Docker Image](#docker-image)
 * [Docker Compose](#docker-compose)
