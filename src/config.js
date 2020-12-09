@@ -51,6 +51,7 @@ const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
 
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
+  bell: 'sounds/bell',
   features,
   settings: {
     ...dotenvSettings,

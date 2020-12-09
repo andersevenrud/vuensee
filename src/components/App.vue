@@ -98,7 +98,7 @@
 import { onBeforeMount, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fullscreen } from '../utils/dom'
-import { VuenseeRFB, bell } from '../utils/novnc'
+import { VuenseeRFB, createBell } from '../utils/novnc'
 import * as store from '../store'
 import config from '../config'
 import Panel from './layout/Panel.vue'
@@ -112,8 +112,7 @@ import Messages from './layout/Messages.vue'
 import Logo from './layout/Logo.vue'
 
 let _client
-// TODO: Implement proper reconnect mechanic
-let _reconnectTimeout
+let _reconnectTimeout // TODO: Implement proper reconnect mechanic
 
 export default {
   name: 'App',
@@ -132,12 +131,13 @@ export default {
 
   setup() {
     const { t } = useI18n()
+    const bell = createBell(config.bell)
     const onFullscreenChange = () => store.updateFullscreen(!!fullscreen.element())
 
     onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
     onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
 
-    return { config, t }
+    return { config, bell, t }
   },
 
   data() {
@@ -175,7 +175,7 @@ export default {
 
     onBell() {
       if (this.settings.bell) {
-        bell.play()
+        this.bell.play()
       }
     },
 

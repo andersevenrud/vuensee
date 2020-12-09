@@ -7,6 +7,17 @@ import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 import { createAudioElement } from './dom'
 
+const events = [
+  'disconnect',
+  'connect',
+  'credentialsrequired',
+  'securityfailure',
+  'desktopname',
+  'bell',
+  'capabilities',
+  'clipboard'
+]
+
 export const scalingModes = [
   'off',
   'scale',
@@ -21,9 +32,9 @@ export const keyMappings = {
   windows: [KeyTable.XK_Super_L, 'MetaLeft']
 }
 
-export const bell = createAudioElement([
-  ['audio/ogg', 'sounds/bell.oga'],
-  ['audio/mpeg', 'sounds/bell.mp3']
+export const createBell = name => createAudioElement([
+  ['audio/ogg', `${name}.oga`],
+  ['audio/mpeg', `${name}.mp3`]
 ])
 
 export class VuenseeRFB extends RFB {
@@ -61,11 +72,19 @@ export class VuenseeRFB extends RFB {
   }) {
     const url = `ws${ssl ? 's' : ''}://${hostname}:${port}/${path}`
 
+    const wrapper = name => e => {
+      if (import.meta.env.DEV) {
+        console.debug(name, e)
+      }
+
+      return bindings[name](e)
+    }
+
     const rfb = new VuenseeRFB(root, url, {
       shared: settings.sharedMode,
       repeaterID: settings.repeaterId,
 
-      // NOTE: It's important to set to undefined, or else it will be
+      // NOTE: It's important to set to undefined, or else it will
       // try to send the value as credentials, making connection fail!
       // We want a login prompt in this case.
       credentials: {
@@ -74,14 +93,16 @@ export class VuenseeRFB extends RFB {
       }
     })
 
-    rfb.addEventListener('disconnect', e => bindings.disconnect(e))
-    rfb.addEventListener('connect', e => bindings.connect(e))
-    rfb.addEventListener('credentialsrequired', e => bindings.credentialsrequired(e))
-    rfb.addEventListener('securityfailure', e => bindings.securityfailure(e))
-    rfb.addEventListener('desktopname', e => bindings.desktopname(e))
-    rfb.addEventListener('bell', e => bindings.bell(e))
-    rfb.addEventListener('capabilities', e => bindings.capabilities(e))
-    rfb.addEventListener('clipboard', e => bindings.clipboard(e))
+    // NOTE: Manually unsubscribe from all events when we disconnect.
+    // This is because we create a new instance whenever a connection goes down.
+    // We might find a way to get around that in the future.
+    const listeners = events.map(name => [name, wrapper(name)])
+    listeners.forEach(([name, cb]) => rfb.addEventListener(name, cb))
+
+    rfb.addEventListener('disconnect', () => {
+      listeners.forEach(([name, cb]) => rfb.removeEventListener(name, cb))
+    })
+
     rfb.applySettings(settings)
 
     return rfb
