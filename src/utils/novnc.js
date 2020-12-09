@@ -5,6 +5,7 @@
  */
 import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
+import { createAudioElement } from './dom'
 
 export const scalingModes = [
   'off',
@@ -20,76 +21,32 @@ export const keyMappings = {
   windows: [KeyTable.XK_Super_L, 'MetaLeft']
 }
 
-export const client = {
-  rfb: null,
+export const bell = createAudioElement([
+  ['audio/ogg', 'sounds/bell.oga'],
+  ['audio/mpeg', 'sounds/bell.mp3']
+])
 
+export class VuenseeRFB extends RFB {
   applySettings(settings) {
-    this.rfb.clipViewport = settings.clipToWindow
-    this.rfb.scaleViewport = settings.scalingMode === 'scale'
-    this.rfb.resizeSession = settings.scalingMode === 'remote'
-    this.rfb.qualityLevel = settings.quality
-    this.rfb.compressionLevel = settings.compression
-    this.rfb.showDotCursor = settings.dotCursor
-    this.rfb.viewOnly = settings = settings.viewOnly
-  },
+    this.clipViewport = settings.clipToWindow
+    this.scaleViewport = settings.scalingMode === 'scale'
+    this.resizeSession = settings.scalingMode === 'remote'
+    this.qualityLevel = settings.quality
+    this.compressionLevel = settings.compression
+    this.showDotCursor = settings.dotCursor
+    this.viewOnly = settings = settings.viewOnly
+  }
 
   hasPowerCapabilities() {
-    return this.rfb.capabilities.power && !this.rfb.viewOnly
-  },
+    return this.capabilities.power && !this.viewOnly
+  }
 
-  clearClipboard() {
-    this.rfb.clipboardPasteFrom('')
-  },
+  sendKeyCommand(name, value = true) {
+    const [keysym, code] = keyMappings[name]
+    this.sendKey(keysym, code, value)
+  }
 
-  sendClipboardData(text) {
-    this.rfb.clipboardPasteFrom(text)
-  },
-
-  sendPowerSignal(signal) {
-    if (signal === 'shutdown') {
-      this.rfb.machineShutdown()
-    } else if (signal === 'reboot') {
-      this.rfb.machineReboot()
-    } else if (signal === 'reset') {
-      this.rfb.machineReset()
-    }
-  },
-
-  sentCtrlAltDelete() {
-    this.rfb.sendCtrlAltDel()
-    this.rfb.focus()
-  },
-
-  sendKey(name, value = true) {
-    if (this.rfb) {
-      const [keysym, code] = keyMappings[name]
-
-      this.rfb.sendKey(keysym, code, value)
-      this.rfb.focus()
-    }
-  },
-
-  sendCredentials(creds) {
-    this.rfb.sendCredentials(creds)
-  },
-
-  focus() {
-    if (this.rfb) {
-      this.rfb.focus()
-    }
-  },
-
-  disconnect() {
-    if (this.rfb) {
-      try {
-        this.rfb.disconnect()
-      } catch (e) {
-        console.warn(e)
-      }
-    }
-  },
-
-  connect({
+  static connect({
     root,
     bindings,
     options: {
@@ -104,26 +61,29 @@ export const client = {
   }) {
     const url = `ws${ssl ? 's' : ''}://${hostname}:${port}/${path}`
 
-    this.rfb = new RFB(root, url, {
+    const rfb = new VuenseeRFB(root, url, {
       shared: settings.sharedMode,
       repeaterID: settings.repeaterId,
+
+      // NOTE: It's important to set to undefined, or else it will be
+      // try to send the value as credentials, making connection fail!
+      // We want a login prompt in this case.
       credentials: {
         username: username || undefined,
         password: password || undefined
       }
     })
 
-    this.rfb.addEventListener('disconnect', e => bindings.disconnect(e))
-    this.rfb.addEventListener('connect', e => bindings.connect(e))
-    this.rfb.addEventListener('credentialsrequired', e => bindings.credentialsrequired(e))
-    this.rfb.addEventListener('securityfailure', e => bindings.securityfailure(e))
-    this.rfb.addEventListener('desktopname', e => bindings.desktopname(e))
-    this.rfb.addEventListener('bell', e => bindings.bell(e))
-    this.rfb.addEventListener('capabilities', e => bindings.capabilities(e))
-    this.rfb.addEventListener('clipboard', e => bindings.clipboard(e))
+    rfb.addEventListener('disconnect', e => bindings.disconnect(e))
+    rfb.addEventListener('connect', e => bindings.connect(e))
+    rfb.addEventListener('credentialsrequired', e => bindings.credentialsrequired(e))
+    rfb.addEventListener('securityfailure', e => bindings.securityfailure(e))
+    rfb.addEventListener('desktopname', e => bindings.desktopname(e))
+    rfb.addEventListener('bell', e => bindings.bell(e))
+    rfb.addEventListener('capabilities', e => bindings.capabilities(e))
+    rfb.addEventListener('clipboard', e => bindings.clipboard(e))
+    rfb.applySettings(settings)
 
-    this.applySettings(settings)
-
-    return this.rfb
+    return rfb
   }
 }

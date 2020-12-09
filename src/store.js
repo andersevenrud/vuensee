@@ -74,7 +74,7 @@ const _state = reactive({
 
   settings: {
     ...initialSettings,
-    ...config.defaultSettings
+    ...config.settings
   },
 
   // Overrides

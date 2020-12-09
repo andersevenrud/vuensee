@@ -44,16 +44,16 @@ const featureMap = [
 ]
 
 const features = readFeatures(featureMap)
-const defaultSettings = readSettings(settingsMap)
-const overrideSettings = featureCheck(fromFeatureEnv('urlSettings'))
+const dotenvSettings = readSettings(settingsMap)
+const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
   ? readUrlSettings(settingsMap)
   : {}
 
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
   features,
-  defaultSettings: {
-    ...defaultSettings,
-    ...overrideSettings
+  settings: {
+    ...dotenvSettings,
+    ...urlSettings
   }
 }

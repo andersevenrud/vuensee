@@ -6,37 +6,37 @@
 
 export const isSecure = window.location.protocol === 'https:'
 
-export const requestFullscreen = () => (document.documentElement.requestFullscreen ||
-  document.documentElement.mozRequestFullscreen ||
-  document.documentElement.webkitRequestFullscreen ||
-  document.documentElement.msRequestFullscreen).bind(document.documentElement)()
+export const fullscreen = {
+  request: () => (document.documentElement.requestFullscreen ||
+    document.documentElement.mozRequestFullscreen ||
+    document.documentElement.webkitRequestFullscreen ||
+    document.documentElement.msRequestFullscreen).bind(document.documentElement)(),
 
-export const exitFullscreen = () => (document.exitFullscreen ||
-  document.mozExitFullscreen ||
-  document.webkitExitFullscreen ||
-  document.msExitFullscreen).bind(document)()
+  exit: () => (document.exitFullscreen ||
+    document.mozExitFullscreen ||
+    document.webkitExitFullscreen ||
+    document.msExitFullscreen).bind(document)(),
 
-export const getFullscreenElement = () => document.fullscreenElement ||
-  document.mozFullscreenElement ||
-  document.webkitFullscreenElement ||
-  document.msFullscreenElement
+  element: () => document.fullscreenElement ||
+    document.mozFullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+}
 
 export const getTargetInputValue = ev =>
   ev.target.type === 'checkbox'
     ? ev.target.checked
     : ev.target.value
 
-export const playBell = (() => {
-  const createSource = (type, src) => {
+export const createAudioElement = (sources) => {
+  const audio = new Audio()
+
+  sources.forEach(([type, src]) => {
     const el = document.createElement('source')
     el.type = type
     el.src = src
-    return el
-  }
+    audio.appendChild(el)
+  })
 
-  const audio = new Audio()
-  audio.appendChild(createSource('audio/ogg', 'sounds/bell.oga'))
-  audio.appendChild(createSource('audio/mpeg', 'sounds/bell.mpeg'))
-
-  return () => audio.play()
-})()
+  return audio
+}

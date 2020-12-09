@@ -16,7 +16,7 @@
         :fullscreen="fullscreen"
         :power="capabilities.power"
         :view-only="settings.viewOnly"
-        :features="features"
+        :features="config.features"
         @settings="onSettingsToggle"
         @connect="onConnectRequest"
         @disconnect="onDisconnectRequest"
@@ -48,7 +48,7 @@
       />
 
       <Settings
-        v-if="features.settings"
+        v-if="config.features.settings"
         v-show="showSettings"
         :disabled="connected || connecting"
         :settings="settings"
@@ -57,7 +57,7 @@
     </Panel>
 
     <Logo
-      :title="title"
+      :title="config.title"
     />
 
     <div
@@ -95,19 +95,10 @@
 </style>
 
 <script>
-import {
-  ref,
-  onBeforeMount,
-  onBeforeUnmount
-} from 'vue'
+import { onBeforeMount, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
-import {
-  requestFullscreen,
-  exitFullscreen,
-  getFullscreenElement,
-  playBell
-} from '../utils/dom'
-import { client } from '../utils/novnc'
+import { fullscreen } from '../utils/dom'
+import { VuenseeRFB, bell } from '../utils/novnc'
 import * as store from '../store'
 import config from '../config'
 import Panel from './layout/Panel.vue'
@@ -120,6 +111,7 @@ import Login from './layout/Login.vue'
 import Messages from './layout/Messages.vue'
 import Logo from './layout/Logo.vue'
 
+let _client
 // TODO: Implement proper reconnect mechanic
 let _reconnectTimeout
 
@@ -140,28 +132,20 @@ export default {
 
   setup() {
     const { t } = useI18n()
-    const panel = ref(null)
-    const view = ref(null)
+    const onFullscreenChange = () => store.updateFullscreen(!!fullscreen.element())
 
-    const onFullscreenChange = () => store.updateFullscreen(
-      !!getFullscreenElement()
-    )
-
-    onBeforeMount(() => (document.title = config.title))
     onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
     onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
 
-    return {
-      features: config.features,
-      title: config.title,
-      panel,
-      view,
-      t
-    }
+    return { config, t }
   },
 
   data() {
     return store.state
+  },
+
+  beforeMount() {
+    document.title = config.title
   },
 
   mounted() {
@@ -181,7 +165,7 @@ export default {
       })
 
       if (this.connected) {
-        client.applySettings(this.settings)
+        _client.applySettings(this.settings)
       }
     },
 
@@ -191,7 +175,7 @@ export default {
 
     onBell() {
       if (this.settings.bell) {
-        playBell()
+        bell.play()
       }
     },
 
@@ -205,7 +189,7 @@ export default {
 
     onCapabilities() {
       store.updateCapabilities({
-        power: client.hasPowerCapabilities()
+        power: _client.hasPowerCapabilities()
       })
     },
 
@@ -214,12 +198,12 @@ export default {
     },
 
     onClipboardClear() {
-      client.clearClipboard()
+      _client.clipboardPasteFrom('')
       store.clearClipboard()
     },
 
     onClipboardUpdate(text) {
-      client.sendClipboardData(text)
+      _client.clipboardPasteFrom(text)
       store.updateClipboard(text)
     },
 
@@ -229,7 +213,7 @@ export default {
 
     onConnected() {
       store.connectionActivated()
-      client.focus()
+      _client.focus()
     },
 
     onDisconnected(e) {
@@ -261,8 +245,8 @@ export default {
       store.addMessage(this.t('messages.connecting'))
       store.connectionActivate()
 
-      client.connect({
-        root: this.view,
+      _client = VuenseeRFB.connect({
+        root: this.$refs.view,
         options: this.settings,
         bindings: {
           disconnect: this.onDisconnected,
@@ -280,15 +264,15 @@ export default {
     onDisconnectRequest() {
       clearTimeout(_reconnectTimeout)
       store.connectionDeactivate()
-      client.disconnect()
+      _client.disconnect()
     },
 
     onMaximize() {
-      requestFullscreen()
+      fullscreen.request()
     },
 
     onMinimize() {
-      exitFullscreen()
+      fullscreen.exit()
     },
 
     onPower() {
@@ -304,39 +288,45 @@ export default {
     },
 
     onPowerShutdown() {
-      client.sendPowerSignal('shutdown')
+      _client.machineShutdown()
     },
 
     onPowerReboot() {
-      client.sendPowerSignal('reboot')
+      _client.machineReboot()
     },
 
     onPowerReset() {
-      client.sendPowerSignal('reset')
+      _client.machineReset()
     },
 
     onKeyToggle(key) {
       const toggle = store.toggleKey(key)
-      client.sendKey(key, toggle)
+      _client.sendKeyCommand(key, toggle)
+      _client.focus()
     },
 
     onKeySend(key) {
-      client.sendKey(key)
+      if (key === 'cad') {
+        _client.sendCtrlAlDel()
+      } else {
+        _client.sendKeyCommand(key)
+      }
+
+      _client.focus()
     },
 
     onMouseOut() {
       if (this.connected) {
-        client.focus()
+        _client.focus()
       }
     },
 
     onSubmitCredentials(creds) {
       store.updateSettings(creds)
-      client.sendCredentials(creds)
+      _client.sendCredentials(creds)
     },
 
     onMessageClick(ev, { key }) {
-    console.log(key)
       store.removeMessage(key)
     }
   }
