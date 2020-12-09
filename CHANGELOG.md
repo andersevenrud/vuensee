@@ -1,17 +1,16 @@
-# CHANGELOG
+# Changelog
 
-## tbd - 1.0.0
+## 2020-12-09 - 0.5.0
 
-Initial release.
+Initial release with the following features supported:
 
-* Basic responsive design
-* Configuration and customization support
-* Localization support
+* Configuration (dotenv and url)
+* Localization (only english in this release)
 * Authentication
 * Reconnection
 * Send special keys
 * System bell
 * Fullscreen
-* Power
 * Clipboard
-* Bell
+* Send special keys
+* Send power signals
