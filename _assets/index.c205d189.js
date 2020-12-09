@@ -25,7 +25,7 @@ const la=["off","scale","remote"],ua={esc:[ia,"Escape"],tab:[ra,"Tab"],ctrl:[sa,
  * vuensee
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
- */const ha=e=>["1","on","true"].includes(e)
+ */const ha=e=>["1","on","true"].includes(String(e))
 /*
  * vuensee
  * @author Anders Evenrud <andersevenrud@gmail.com>
