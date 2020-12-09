@@ -16,6 +16,7 @@
         :fullscreen="fullscreen"
         :power="capabilities.power"
         :view-only="settings.viewOnly"
+        :features="features"
         @settings="onSettingsToggle"
         @connect="onConnectRequest"
         @disconnect="onDisconnectRequest"
@@ -71,6 +72,7 @@
 
     <Messages
       :messages="messages"
+      @click="onMessageClick"
     />
   </div>
 </template>
@@ -83,10 +85,12 @@
 }
 
 .vnc {
-  position: relative;
+  position: absolute;
   z-index: 10;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
 }
 </style>
 
@@ -116,6 +120,7 @@ import Login from './layout/Login.vue'
 import Messages from './layout/Messages.vue'
 import Logo from './layout/Logo.vue'
 
+// TODO: Implement proper reconnect mechanic
 let _reconnectTimeout
 
 export default {
@@ -328,6 +333,11 @@ export default {
     onSubmitCredentials(creds) {
       store.updateSettings(creds)
       client.sendCredentials(creds)
+    },
+
+    onMessageClick(ev, { key }) {
+    console.log(key)
+      store.removeMessage(key)
     }
   }
 }

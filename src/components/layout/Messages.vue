@@ -8,7 +8,9 @@
     <div
       v-for="message in messages"
       :key="message.key"
-      :class="[$style.message, $style[message.type]]"
+      :class="$style.message"
+      :style="styles(message.type)"
+      @click="$emit('click', $event, message)"
     >
       {{ message.message }}
     </div>
@@ -18,39 +20,21 @@
 <style module>
 .messages {
   position: absolute;
-  bottom: var(--app-margin);
-  right: var(--app-margin);
+  bottom: 0;
+  right: 0;
   z-index: 1000;
-  pointer-events: none;
   min-width: 5rem;
-  text-align: center;
 }
 
 .message {
   padding: var(--app-margin);
+  margin: var(--app-margin);
   background-color: var(--app-background-color);
   box-shadow: var(--app-message-shadow);
-  box-sizing: border-box;
   border-radius: var(--app-message-border-radius);
-}
-
-.message:not(:last-child) {
-  margin-bottom: var(--app-margin);
-}
-
-.message.info {
-  background-color: var(--app-message-info-background-color);
-  color: var(--app-message-info-text-color);
-}
-
-.message.warn {
-  background-color: var(--app-message-warn-background-color);
-  color: var(--app-message-warn-text-color);
-}
-
-.message.error {
-  background-color: var(--app-message-error-background-color);
-  color: var(--app-message-error-text-color);
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
 }
 </style>
 
@@ -62,6 +46,19 @@ export default {
     messages: {
       type: Array,
       required: true
+    }
+  },
+
+  emits: [
+    'click'
+  ],
+
+  methods: {
+    styles(type) {
+      return {
+        backgroundColor: `var(--app-message-${type}-background-color)`,
+        color: `var(--app-message-${type}-text-color)`
+      }
     }
   }
 }

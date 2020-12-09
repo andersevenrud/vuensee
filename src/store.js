@@ -4,9 +4,8 @@
  * @license MIT
  */
 import { reactive, readonly } from 'vue'
+import { isSecure } from './utils/dom'
 import config from './config'
-
-const _ssl = window.location.protocol === 'https:'
 
 let _messageKey = 0
 
@@ -24,20 +23,46 @@ const defaultVisibility = {
   showClipboard: false
 }
 
-const initialCapabilities = {
-  power: false
-}
-
-const _state = reactive({
-  ...defaultVisibility,
-  showSettings: config.features.settings,
-  messages: [],
-  fullscreen: false,
+const defaultConnectionStates = {
   connected: false,
   connecting: false,
   disconnecting: false,
   reconnecting: false,
+}
+
+const initialCapabilities = {
+  power: false
+}
+
+const initialSettings = {
+  autoconnect: false,
+  username: '',
+  password: '',
+  bell: true,
+  sharedMode: true,
+  viewOnly: false,
+  clipToWindow: false,
+  scalingMode: 'off',
+  quality: 6,
+  compression: 2,
+  reconnect: false,
+  reconnectDelay: 5000,
+  messageTimeout: 3000,
+  dotCursor: false,
+  hostname: window.location.hostname,
+  path: 'websockify',
+  repeaterId: '',
+  port: isSecure ? 443 : 80,
+  ssl: isSecure
+}
+
+const _state = reactive({
+  messages: [],
+  fullscreen: false,
   clipboard: '',
+
+  ...defaultConnectionStates,
+  ...defaultVisibility,
 
   capabilities: {
     ...initialCapabilities
@@ -48,27 +73,12 @@ const _state = reactive({
   },
 
   settings: {
-    autoconnect: false,
-    username: '',
-    password: '',
-    bell: true,
-    sharedMode: true,
-    viewOnly: false,
-    clipToWindow: false,
-    scalingMode: 'off',
-    quality: 6,
-    compression: 2,
-    reconnect: false,
-    reconnectDelay: 5000,
-    dotCursor: false,
-    hostname: window.location.hostname,
-    path: 'websockify',
-    repeaterId: '',
-    port: _ssl ? 443 : 80,
-    ssl: _ssl,
-
+    ...initialSettings,
     ...config.defaultSettings
-  }
+  },
+
+  // Overrides
+  showSettings: config.features.settings,
 })
 
 export const state = readonly(_state)
@@ -90,14 +100,25 @@ export const updateSettings = (settings) => {
   }
 }
 
+export const removeMessage = (key) => {
+  const foundIndex = _state.messages.findIndex(message => message.key === key)
+  if (foundIndex !== -1) {
+    _state.messages.splice(foundIndex, 1)
+  }
+}
+
 export const addMessage = (message, type = 'info') => {
+  const key =  _messageKey++
+
   _state.messages.unshift({
-    key: _messageKey++,
+    key,
     message,
     type
   })
 
-  setTimeout(() => _state.messages.pop(), 3000)
+  if (_state.settings.messageTimeout > 0) {
+    setTimeout(() => removeMessage(key), _state.settings.messageTimeout)
+  }
 }
 
 export const updateFullscreen = fullscreen => (_state.fullscreen = fullscreen)
@@ -131,40 +152,30 @@ export const clearClipboard = () => (_state.clipboard = '')
 export const updateClipboard = (clipboard) => (_state.clipboard = clipboard)
 
 export const connectionActivate = () => Object.assign(_state, {
-  showSettings: false,
-  showLogin: false,
-  reconnecting: false,
-  disconnecting: false,
-  connecting: true,
-  connected: false
+  ...defaultConnectionStates,
+  ...defaultVisibility,
+  connecting: true
 })
 
 export const connectionDeactivate = () => Object.assign(_state, {
-  showLogin: false,
+  ...defaultConnectionStates,
+  ...defaultVisibility,
   showSettings: true,
-  reconnecting: false,
-  disconnecting: true,
-  connecting: false,
-  connected: false
+  disconnecting: true
 })
 
 export const connectionActivated = () => Object.assign(_state, {
-  reconnecting: false,
-  showLogin: false,
-  showSettings: false,
-  disconnecting: false,
-  connecting: false,
+  ...defaultConnectionStates,
+  ...defaultVisibility,
   connected: true
 })
 
 export const connectionDeactivated = (reconnecting = false) => Object.assign(_state, {
+  ...defaultConnectionStates,
+  ...defaultVisibility,
   reconnecting,
   clipboard: '',
-  showLogin: false,
   showSettings: !reconnecting,
-  disconnecting: false,
-  connecting: false,
-  connected: false,
   settings: {
     ..._state.settings,
     password: reconnecting ? _state.password : ''

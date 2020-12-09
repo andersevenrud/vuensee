@@ -4,6 +4,7 @@
  * @license MIT
  */
 :root {
+  /* TODO: Rename to --vuesee */
   --app-margin: 1rem;
   --app-margin-half: 0.5rem;
   --app-margin-quarter: 0.25rem;

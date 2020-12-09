@@ -16,6 +16,7 @@ import {
 } from './utils/config'
 
 const settingsMap = [
+  ['messageTimeout', parseNumber],
   ['autoconnect', parseBoolean],
   ['bell', parseBoolean],
   ['sharedMode', parseBoolean],

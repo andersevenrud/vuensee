@@ -4,6 +4,8 @@
  * @license MIT
  */
 
+export const isSecure = window.location.protocol === 'https:'
+
 export const requestFullscreen = () => (document.documentElement.requestFullscreen ||
   document.documentElement.mozRequestFullscreen ||
   document.documentElement.webkitRequestFullscreen ||

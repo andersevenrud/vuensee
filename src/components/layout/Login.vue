@@ -14,9 +14,7 @@
       />
 
       <div :class="$style.button">
-        <Button
-          type="submit"
-        >
+        <Button type="submit">
           {{ t('login.submit') }}
         </Button>
       </div>
@@ -34,15 +32,13 @@
   padding: var(--app-margin);
   box-shadow: var(--app-panel-shadow);
   background-color: var(--app-panel-background-color);
+  width: 20rem;
+  max-width: 90%;
 }
 
 .button {
   text-align: right;
   margin-top: var(--app-margin);
-}
-
-.button button {
-  padding: var(--app-margin-half);
 }
 </style>
 

@@ -12,6 +12,14 @@ import Dropdown from './components/inputs/Dropdown.vue'
 import Range from './components/inputs/Range.vue'
 import Button from './components/inputs/Button.vue'
 import Checkbox from './components/inputs/Checkbox.vue'
+import SettingsIcon from './components/icons/SettingsIcon.vue'
+import KeysIcon from './components/icons/KeysIcon.vue'
+import ClipboardIcon from './components/icons/ClipboardIcon.vue'
+import MinimizeIcon from './components/icons/MinimizeIcon.vue'
+import MaximizeIcon from './components/icons/MaximizeIcon.vue'
+import PowerIcon from './components/icons/PowerIcon.vue'
+import DisconnectIcon from './components/icons/DisconnectIcon.vue'
+import ConnectIcon from './components/icons/ConnectIcon.vue'
 import messages from './translations'
 import './assets/index.css'
 import './assets/theme.css'
@@ -30,4 +38,12 @@ app.component('Dropdown', Dropdown)
 app.component('Range', Range)
 app.component('Button', Button)
 app.component('Checkbox', Checkbox)
+app.component('SettingsIcon', SettingsIcon)
+app.component('KeysIcon', KeysIcon)
+app.component('ClipboardIcon', ClipboardIcon)
+app.component('MinimizeIcon', MinimizeIcon)
+app.component('MaximizeIcon', MaximizeIcon)
+app.component('PowerIcon', PowerIcon)
+app.component('DisconnectIcon', DisconnectIcon)
+app.component('ConnectIcon', ConnectIcon)
 app.mount('#app')

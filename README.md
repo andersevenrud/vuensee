@@ -103,6 +103,7 @@ Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 | `VITE_SETTINGS_COMPRESSION`     | `compression`    | Number    | `2`          |
 | `VITE_SETTINGS_RECONNECT`       | `reconnect`      | Boolean   | `false`      |
 | `VITE_SETTINGS_RECONNECT_DELAY` | `reconnectDelay` | Number    | `5000`       |
+| `VITE_SETTINGS_MESSAGE_TIMEOUT` | `messageTimeout` | Number    | `3000`       |
 | `VITE_SETTINGS_DOT_CURSOR`      | `dotCursor`      | Boolean   | `false`      |
 | `VITE_SETTINGS_HOSTNAME`        | `hostname`       | String    | Auto         |
 | `VITE_SETTINGS_PATH`            | `path`           | String    | `websockify` |
