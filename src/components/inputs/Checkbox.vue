@@ -5,7 +5,7 @@
 -->
 <template>
   <div :class="$style.checkbox">
-    <label>
+    <label :class="{ [$style.disabled]: $attrs.disabled }">
       <input
         v-bind="$attrs"
         type="checkbox"
@@ -15,7 +15,7 @@
         <span v-if="$attrs.checked" />
       </span>
 
-      <span>
+      <span :class="$style.label">
         {{ label }}
       </span>
     </label>
@@ -50,6 +50,14 @@
   height: 0.8rem;
   background-color: currentColor;
   transform: translate(-50%, -50%);
+}
+
+.checkbox .disabled {
+  cursor: not-allowed;
+}
+.disabled .label,
+.disabled .overlay > span {
+  opacity: 0.5;
 }
 </style>
 

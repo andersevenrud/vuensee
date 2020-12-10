@@ -12,6 +12,7 @@
       <input
         ref="input"
         v-bind="$attrs"
+        :type="$attrs.type || 'text'"
         @input="$emit('update:modelValue', $event.target.value)"
       >
     </label>

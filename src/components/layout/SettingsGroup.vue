@@ -4,7 +4,10 @@
  @license MIT
 -->
 <template>
-  <details :class="$style.details">
+  <details
+    ref="details"
+    :class="$style.details"
+  >
     <summary>{{ label }}</summary>
     <div>
       <slot />
@@ -37,6 +40,8 @@
 </style>
 
 <script>
+import { ref, onMounted } from 'vue'
+
 export default {
   name: 'SettingsGroup',
   props: {
@@ -44,6 +49,11 @@ export default {
       type: String,
       required: true
     }
+  },
+  setup() {
+    const details = ref(null)
+    onMounted(() => (details.value.open = true))
+    return { details }
   }
 }
 </script>
