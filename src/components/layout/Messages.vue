@@ -27,11 +27,11 @@
 }
 
 .message {
-  padding: var(--app-margin);
-  margin: var(--app-margin);
-  background-color: var(--app-background-color);
-  box-shadow: var(--app-message-shadow);
-  border-radius: var(--app-message-border-radius);
+  padding: var(--vuensee-margin);
+  margin: var(--vuensee-margin);
+  background-color: var(--vuensee-background-color);
+  box-shadow: var(--vuensee-message-shadow);
+  border-radius: var(--vuensee-message-border-radius);
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
@@ -56,8 +56,8 @@ export default {
   methods: {
     styles(type) {
       return {
-        backgroundColor: `var(--app-message-${type}-background-color)`,
-        color: `var(--app-message-${type}-text-color)`
+        backgroundColor: `var(--vuensee-message-${type}-background-color)`,
+        color: `var(--vuensee-message-${type}-text-color)`
       }
     }
   }

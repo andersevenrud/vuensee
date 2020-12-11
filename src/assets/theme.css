@@ -4,38 +4,37 @@
  * @license MIT
  */
 :root {
-  /* TODO: Rename to --vuesee */
-  --app-margin: 1rem;
-  --app-margin-half: 0.5rem;
-  --app-margin-quarter: 0.25rem;
+  --vuensee-margin: 1rem;
+  --vuensee-margin-half: 0.5rem;
+  --vuensee-margin-quarter: 0.25rem;
 
-  --app-font-size-small: 14px;
-  --app-font-size-normal: 16px;
-  --app-font-size-large: 18px;
-  --app-font-size-xlarge: 20px;
+  --vuensee-font-size-small: 14px;
+  --vuensee-font-size-normal: 16px;
+  --vuensee-font-size-large: 18px;
+  --vuensee-font-size-xlarge: 20px;
 
-  --app-text-color: #eee;
-  --app-background-color: #222;
+  --vuensee-text-color: #eee;
+  --vuensee-background-color: #222;
 
-  --app-logo-text-color: currentColor;
-  --app-logo-text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
-  --app-logo-font-size: 4rem;
+  --vuensee-logo-text-color: currentColor;
+  --vuensee-logo-text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
+  --vuensee-logo-font-size: 4rem;
 
-  --app-panel-background-color: #525252;
-  --app-panel-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.5);
+  --vuensee-panel-background-color: #525252;
+  --vuensee-panel-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.5);
 
-  --app-accordian-background-color: #414141;
+  --vuensee-accordian-background-color: #414141;
 
-  --app-input-border: 2px solid #222;
-  --app-input-background-color: #313131;
-  --app-input-disabled-background-color: #333;
+  --vuensee-input-border: 2px solid #222;
+  --vuensee-input-background-color: #313131;
+  --vuensee-input-disabled-background-color: #333;
 
-  --app-message-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-  --app-message-border-radius: 0.25rem;
-  --app-message-info-background-color: #65ac69;
-  --app-message-info-text-color: currentColor;
-  --app-message-warn-background-color: #e29c31;
-  --app-message-warn-text-color: currentColor;
-  --app-message-error-background-color: #f44336;
-  --app-message-error-text-color: currentColor;
+  --vuensee-message-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  --vuensee-message-border-radius: 0.25rem;
+  --vuensee-message-info-background-color: #65ac69;
+  --vuensee-message-info-text-color: currentColor;
+  --vuensee-message-warn-background-color: #e29c31;
+  --vuensee-message-warn-text-color: currentColor;
+  --vuensee-message-error-background-color: #f44336;
+  --vuensee-message-error-text-color: currentColor;
 }

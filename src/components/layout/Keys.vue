@@ -23,14 +23,14 @@
 <style module>
 .keys {
   display: flex;
-  padding: var(--app-margin-quarter);
+  padding: var(--vuensee-margin-quarter);
   align-items: stretch;
   box-sizing: border-box;
 }
 
 .button {
   flex: 1 1 auto;
-  margin: var(--app-margin-quarter);
+  margin: var(--vuensee-margin-quarter);
   overflow: hidden;
 }
 

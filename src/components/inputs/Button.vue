@@ -15,13 +15,13 @@
 
 <style module>
 .button {
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
-  padding: var(--app-margin-half);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
+  padding: var(--vuensee-margin-half);
 }
 
 .active {
-  background: var(--app-background-color);
+  background: var(--vuensee-background-color);
 }
 </style>
 

@@ -21,18 +21,18 @@
 
 <style module>
 .input input {
-  padding: var(--app-margin-half);
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  padding: var(--vuensee-margin-half);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   display: block;
   width: 100%;
 }
 .input input:disabled {
-  background-color: var(--app-input-disabled-background-color);
+  background-color: var(--vuensee-input-disabled-background-color);
 }
 .input label > span {
   display: block;
-  margin-bottom: var(--app-margin-quarter);
+  margin-bottom: var(--vuensee-margin-quarter);
 }
 </style>
 

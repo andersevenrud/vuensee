@@ -29,16 +29,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10000;
-  padding: var(--app-margin);
-  box-shadow: var(--app-panel-shadow);
-  background-color: var(--app-panel-background-color);
+  padding: var(--vuensee-margin);
+  box-shadow: var(--vuensee-panel-shadow);
+  background-color: var(--vuensee-panel-background-color);
   width: 20rem;
   max-width: 90%;
 }
 
 .button {
   text-align: right;
-  margin-top: var(--app-margin);
+  margin-top: var(--vuensee-margin);
 }
 </style>
 

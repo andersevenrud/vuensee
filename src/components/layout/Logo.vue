@@ -16,9 +16,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  color: var(--app-logo-text-color);
-  font-size: var(--app-logo-font-size);
-  text-shadow: var(--app-logo-text-shadow);
+  color: var(--vuensee-logo-text-color);
+  font-size: var(--vuensee-logo-font-size);
+  text-shadow: var(--vuensee-logo-text-shadow);
   opacity: 0.8;
 }
 </style>

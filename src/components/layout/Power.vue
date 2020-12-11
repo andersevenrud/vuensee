@@ -18,13 +18,13 @@
 <style module>
 .power {
   display: flex;
-  padding: var(--app-margin-quarter);
+  padding: var(--vuensee-margin-quarter);
   align-items: stretch;
   box-sizing: border-box;
 }
 
 .power button {
-  margin: var(--app-margin-quarter);
+  margin: var(--vuensee-margin-quarter);
   display: block;
   width: 100%;
   flex: 1 1;

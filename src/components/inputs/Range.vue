@@ -20,10 +20,10 @@
 <style module>
 .range label span {
   display: block;
-  margin-bottom: var(--app-margin-quarter);
+  margin-bottom: var(--vuensee-margin-quarter);
 }
 
-/* NOTE: It's not possible to use multiple pseudo definitions with comm_max
+/* NOTE: It's not possible to use multiple pseudo definitions with comma
  separation :( So for now this is this way */
 
 /* RESET */
@@ -80,24 +80,24 @@
 .range input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 2rem;
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   cursor: pointer;
 }
 
 .range input[type=range]::-moz-range-track {
   width: 100%;
   height: 1rem;
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   cursor: pointer;
 }
 
 .range input[type=range]::-ms-track {
   width: 100%;
   height: 1rem;
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   cursor: pointer;
 }
 </style>

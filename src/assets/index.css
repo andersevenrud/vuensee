@@ -11,8 +11,8 @@ body {
 }
 
 html {
-  color: var(--app-text-color);
-  font-size: var(--app-font-size-normal);
+  color: var(--vuensee-text-color);
+  font-size: var(--vuensee-font-size-normal);
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,25 +20,25 @@ html {
 
 body {
   overflow: hidden;
-  background-color: var(--app-background-color);
+  background-color: var(--vuensee-background-color);
 }
 
 /* Responsiveness */
 @media (max-width: 600px) {
   html {
-    font-size: var(--app-font-size-small);
+    font-size: var(--vuensee-font-size-small);
   }
 }
 
 @media (min-width: 2560px) {
   html {
-    font-size: var(--app-font-size-large);
+    font-size: var(--vuensee-font-size-large);
   }
 }
 
 @media (min-width: 3840px) {
   html {
-    font-size: var(--app-font-size-xlarge);
+    font-size: var(--vuensee-font-size-xlarge);
   }
 }
 

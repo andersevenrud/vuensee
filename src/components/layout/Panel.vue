@@ -17,8 +17,8 @@
 .panel {
   position: absolute;
   z-index: 100;
-  box-shadow: var(--app-panel-shadow);
-  background-color: var(--app-panel-background-color);
+  box-shadow: var(--vuensee-panel-shadow);
+  background-color: var(--vuensee-panel-background-color);
   transition: all 0.5s;
   display: flex;
   flex-direction: column;

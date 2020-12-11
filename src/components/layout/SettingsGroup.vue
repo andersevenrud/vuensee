@@ -17,25 +17,25 @@
 
 <style module>
 .details[open] {
-  margin-bottom: var(--app-margin);
+  margin-bottom: var(--vuensee-margin);
 }
 
 .details summary {
-  background-color: var(--app-accordian-background-color);
-  padding: var(--app-margin-half);
+  background-color: var(--vuensee-accordian-background-color);
+  padding: var(--vuensee-margin-half);
   cursor: pointer;
 }
 
 .details[open] summary {
-  margin-bottom: var(--app-margin);
+  margin-bottom: var(--vuensee-margin);
 }
 
 .details > div {
-  margin: 0 var(--app-margin);
+  margin: 0 var(--vuensee-margin);
 }
 
 .details > div > div:not(:last-child) {
-  margin-bottom: var(--app-margin-half);
+  margin-bottom: var(--vuensee-margin-half);
 }
 </style>
 

@@ -23,11 +23,11 @@
 
 <style module>
 .clipboard {
-  padding: var(--app-margin-half);
+  padding: var(--vuensee-margin-half);
 }
 
 .clipboard footer {
-  margin-top: var(--app-margin-half);
+  margin-top: var(--vuensee-margin-half);
   text-align: right;
 }
 </style>

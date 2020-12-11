@@ -18,19 +18,19 @@
 
 <style module>
 .textarea textarea {
-  padding: var(--app-margin-half);
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  padding: var(--vuensee-margin-half);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   resize: none;
   display: block;
   width: 100%;
 }
 .textarea textarea input:disabled {
-  background-color: var(--app-input-disabled-background-color);
+  background-color: var(--vuensee-input-disabled-background-color);
 }
 .textarea label > span {
   display: block;
-  margin-bottom: var(--app-margin-quarter);
+  margin-bottom: var(--vuensee-margin-quarter);
 }
 </style>
 

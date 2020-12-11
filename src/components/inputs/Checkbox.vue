@@ -36,9 +36,9 @@
 .overlay {
   width: 1rem;
   height: 1rem;
-  margin-right: var(--app-margin-half);
-  border: var(--app-input-border);
-  background-color: var(--app-input-background-color);
+  margin-right: var(--vuensee-margin-half);
+  border: var(--vuensee-input-border);
+  background-color: var(--vuensee-input-background-color);
   position: relative;
 }
 
