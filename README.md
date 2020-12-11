@@ -23,7 +23,8 @@ for more information.
 
 There are three ways to build and run this application:
 
-> Or you can [download a release](https://github.com/andersevenrud/vuensee/releases) from Github.
+> Alternatively you can [download](https://github.com/andersevenrud/vuensee/releases)
+> a pre-built release from Github.
 
 * [Docker Image](#docker-image)
 * [Docker Compose](#docker-compose)
