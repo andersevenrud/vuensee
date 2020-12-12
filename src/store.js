@@ -5,6 +5,7 @@
  */
 import { reactive, readonly } from 'vue'
 import { isSecure } from './utils/dom'
+import { hasScrollbarGutter } from './utils/novnc'
 import config from './config'
 
 let _messageKey = 0
@@ -86,18 +87,29 @@ export const state = readonly(_state)
 export const toggleKey = key => (_state.keys[key] = !_state.keys[key])
 
 export const updateSettings = (settings) => {
-  Object.assign(_state.settings, settings)
+  const newSettings = {
+    ..._state.settings,
+    ...settings
+  }
 
-  const { port, ssl } = _state.settings
+  const scaling = newSettings.scalingMode === 'scale'
+  if (scaling) {
+    newSettings.clipToWindow = false
+  } else if (!hasScrollbarGutter) {
+    newSettings.clipToWindow = true
+  }
 
   // Auto detect port if no custom port was defined
+  const { port, ssl } = _state.settings
   const newPort = port === 80 && ssl === true
     ? 443
     : (port === 443 && ssl === false ? 80 : undefined)
 
   if (newPort !== undefined) {
-    _state.settings.port = newPort
+    newSettings.port = newPort
   }
+
+  Object.assign(_state.settings, newSettings)
 }
 
 export const removeMessage = (key) => {

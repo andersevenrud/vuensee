@@ -7,6 +7,8 @@ import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 import { createAudioElement } from './dom'
 
+export { hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
+
 const events = [
   'disconnect',
   'connect',

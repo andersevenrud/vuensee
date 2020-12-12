@@ -41,6 +41,7 @@
         <Checkbox
           :label="t('settings.session.clipToWindow')"
           :checked="settings.clipToWindow"
+          :disabled="settings.scaleMode === 'scale'"
           @change="onChange('clipToWindow', $event)"
         />
       </SettingsGroup>
