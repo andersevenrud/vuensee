@@ -105,6 +105,7 @@
 <script>
 export default {
   name: 'Range',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,

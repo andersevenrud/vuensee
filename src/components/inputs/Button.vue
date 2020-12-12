@@ -28,6 +28,7 @@
 <script>
 export default {
   name: 'Button',
+  inheritAttrs: false,
   props: {
     active: {
       type: Boolean,

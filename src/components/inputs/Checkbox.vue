@@ -64,6 +64,7 @@
 <script>
 export default {
   name: 'Checkbox',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,

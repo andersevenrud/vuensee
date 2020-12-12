@@ -47,6 +47,7 @@
 <script>
 export default {
   name: 'Dropdown',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,

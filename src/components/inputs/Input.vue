@@ -39,6 +39,7 @@
 <script>
 export default {
   name: 'Input',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,

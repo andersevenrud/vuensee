@@ -37,6 +37,7 @@
 <script>
 export default {
   name: 'Textarea',
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
