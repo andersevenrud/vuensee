@@ -13,7 +13,8 @@ export default {
       fullscreen: 'Toggle fullscreen',
       power: 'Toggle power buttons',
       connect: 'Connect',
-      disconnect: 'Disconnect'
+      disconnect: 'Disconnect',
+      drag: 'Drag VIewport'
     },
 
     keys: {

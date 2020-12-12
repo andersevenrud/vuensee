@@ -16,8 +16,11 @@
         :fullscreen="fullscreen"
         :power="capabilities.power"
         :view-only="settings.viewOnly"
+        :clip-to-window="settings.clipToWindow"
         :features="config.features"
+        :dragging="dragging"
         @settings="onSettingsToggle"
+        @drag="onDragToggle"
         @connect="onConnectRequest"
         @disconnect="onDisconnectRequest"
         @maximize="onMaximize"
@@ -159,13 +162,23 @@ export default {
       store.toggleSettings()
     },
 
+    onDragToggle() {
+      store.toggleDragging()
+
+      _client.applySettings(this.settings, {
+        dragging: this.dragging
+      })
+    },
+
     onUpdateSettings({ key, value }) {
       store.updateSettings({
         [key]: value
       })
 
       if (this.connected) {
-        _client.applySettings(this.settings)
+        _client.applySettings(this.settings, {
+          dragging: this.dragging
+        })
       }
     },
 

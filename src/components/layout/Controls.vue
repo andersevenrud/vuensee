@@ -33,6 +33,16 @@
       <ClipboardIcon />
     </Button>
 
+    <Button
+      v-if="features.viewportDragging"
+      :title="t('controls.drag')"
+      :disabled="!connected || !clipToWindow"
+      :active="dragging"
+      @click="$emit('drag')"
+    >
+      <DragIcon />
+    </Button>
+
     <template v-if="features.fullscreen">
       <Button
         v-if="fullscreen"
@@ -123,6 +133,14 @@ export default {
     features: {
       type: Object,
       required: true
+    },
+    dragging: {
+      type: Boolean,
+      required: true
+    },
+    clipToWindow: {
+      type: Boolean,
+      required: true
     }
   },
 
@@ -134,7 +152,8 @@ export default {
     'connect',
     'toggle-keys',
     'toggle-clipboard',
-    'power'
+    'power',
+    'drag'
   ],
 
   setup() {

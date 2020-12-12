@@ -36,6 +36,7 @@ const settingsMap = [
 ]
 
 const featureMap = [
+  'viewportDragging',
   'settings',
   'clipboard',
   'fullscreen',

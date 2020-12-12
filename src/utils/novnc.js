@@ -40,7 +40,9 @@ export const createBell = name => createAudioElement([
 ])
 
 export class VuenseeRFB extends RFB {
-  applySettings(settings) {
+  applySettings(settings, {
+    dragging = false
+  } = {}) {
     this.clipViewport = settings.clipToWindow
     this.scaleViewport = settings.scalingMode === 'scale'
     this.resizeSession = settings.scalingMode === 'remote'
@@ -48,6 +50,9 @@ export class VuenseeRFB extends RFB {
     this.compressionLevel = settings.compression
     this.showDotCursor = settings.dotCursor
     this.viewOnly = settings = settings.viewOnly
+    this.dragViewport = !this.clipViewport && this.dragViewport
+      ? false
+      : dragging
   }
 
   hasPowerCapabilities() {

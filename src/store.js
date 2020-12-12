@@ -59,6 +59,7 @@ const initialSettings = {
 
 const _state = reactive({
   messages: [],
+  dragging: false,
   fullscreen: false,
   clipboard: '',
 
@@ -137,6 +138,8 @@ export const updateFullscreen = fullscreen => (_state.fullscreen = fullscreen)
 
 export const updateCapabilities = capabilities => Object.assign(_state.capabilities, capabilities)
 
+export const toggleDragging = (dragging = !_state.dragging) => (_state.dragging = dragging)
+
 export const toggleLogin = (showLogin = !_state.showLogin) => (_state.showLogin = showLogin)
 
 export const toggleSettings = (showSettings = !_state.showSettings) => Object.assign(_state, {
@@ -188,6 +191,7 @@ export const connectionDeactivated = (reconnecting = false) => Object.assign(_st
   reconnecting,
   clipboard: '',
   showSettings: !reconnecting,
+  dragging: false,
   settings: {
     ..._state.settings,
     password: reconnecting ? _state.password : ''

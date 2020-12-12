@@ -21,7 +21,7 @@
 }
 
 .active {
-  background: var(--vuensee-background-color);
+  background: var(--vuensee-background-color) !important;
 }
 </style>
 

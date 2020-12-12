@@ -20,6 +20,7 @@ import MaximizeIcon from './components/icons/MaximizeIcon.vue'
 import PowerIcon from './components/icons/PowerIcon.vue'
 import DisconnectIcon from './components/icons/DisconnectIcon.vue'
 import ConnectIcon from './components/icons/ConnectIcon.vue'
+import DragIcon from './components/icons/DragIcon.vue'
 import messages from './translations'
 import './assets/index.css'
 import './assets/theme.css'
@@ -46,4 +47,5 @@ app.component('MaximizeIcon', MaximizeIcon)
 app.component('PowerIcon', PowerIcon)
 app.component('DisconnectIcon', DisconnectIcon)
 app.component('ConnectIcon', ConnectIcon)
+app.component('DragIcon', DragIcon)
 app.mount('#app')
