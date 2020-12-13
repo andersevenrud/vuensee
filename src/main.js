@@ -24,6 +24,7 @@ import ConnectIcon from './components/icons/ConnectIcon.vue'
 import DragIcon from './components/icons/DragIcon.vue'
 import TouchKeyboardIcon from './components/icons/TouchKeyboardIcon.vue'
 import ChevronIcon from './components/icons/ChevronIcon.vue'
+import CheckIcon from './components/icons/CheckIcon.vue'
 import * as messages from './translations'
 import config from './config'
 import './assets/index.css'
@@ -55,4 +56,5 @@ app.component('ConnectIcon', ConnectIcon)
 app.component('DragIcon', DragIcon)
 app.component('TouchKeyboardIcon', TouchKeyboardIcon)
 app.component('ChevronIcon', ChevronIcon)
+app.component('CheckIcon', CheckIcon)
 app.mount('#app')

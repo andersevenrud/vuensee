@@ -12,7 +12,7 @@
       >
 
       <span :class="$style.overlay">
-        <span v-if="$attrs.checked" />
+        <CheckIcon v-if="$attrs.checked" />
       </span>
 
       <span :class="$style.label">
@@ -42,13 +42,12 @@
   position: relative;
 }
 
-.overlay > span {
+.overlay > svg {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0.8rem;
   height: 0.8rem;
-  background-color: currentColor;
   transform: translate(-50%, -50%);
 }
 
@@ -56,7 +55,7 @@
   cursor: not-allowed;
 }
 .disabled .label,
-.disabled .overlay > span {
+.disabled .overlay > svg {
   opacity: 0.5;
 }
 </style>

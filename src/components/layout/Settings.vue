@@ -39,7 +39,7 @@
         />
 
         <Checkbox
-          :disabled="settings.scalingMode === 'scale'"
+          :disabled="settings.scalingMode === 'scale' || !hasScrollbarGutter"
           :label="t('settings.session.clipToWindow')"
           :checked="settings.clipToWindow"
           @change="onChange('clipToWindow', $event)"
@@ -145,12 +145,18 @@
   width: 30rem;
   max-width: 100%;
 }
+
+@media screen and (max-width: 780px) {
+  .root {
+    width: 100%;
+  }
+}
 </style>
 
 <script>
 import { useI18n } from 'vue-i18n'
 import { getTargetInputValue } from '../../utils/dom'
-import { scalingModes } from '../../utils/novnc'
+import { scalingModes, hasScrollbarGutter } from '../../utils/novnc'
 import SettingsGroup from './SettingsGroup.vue'
 
 export default {
@@ -186,6 +192,7 @@ export default {
     return {
       t,
       onChange,
+      hasScrollbarGutter,
       scalingModes: scalingModes.map(k => [
         k,
         t(`scalingModes.${k}`)

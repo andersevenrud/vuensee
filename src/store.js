@@ -43,7 +43,7 @@ const initialSettings = {
   bell: true,
   sharedMode: true,
   viewOnly: false,
-  clipToWindow: false,
+  clipToWindow: !hasScrollbarGutter,
   scalingMode: 'off',
   quality: 6,
   compression: 2,
