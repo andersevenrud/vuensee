@@ -242,6 +242,7 @@ export default {
     },
 
     onConnected() {
+      store.addMessage(this.t('messages.connected'))
       store.connectionActivated()
       _client.focus()
     },

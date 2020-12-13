@@ -76,6 +76,7 @@ export default {
   },
 
   messages: {
+    connected: 'Connected',
     connecting: 'Connecting',
     disconnected: 'Disconnected',
     reconnecting: 'Reconnecting in {delay}ms...',

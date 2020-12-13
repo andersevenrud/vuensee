@@ -76,6 +76,7 @@ export default {
   },
 
   messages: {
+    connected: 'Tilkoblet',
     connecting: 'Kobler til',
     disconnected: 'Koglet fra',
     reconnecting: 'Gjenkobler om {delay}ms...',
