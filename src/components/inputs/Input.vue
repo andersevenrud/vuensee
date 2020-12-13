@@ -11,6 +11,7 @@
       </span>
       <input
         ref="input"
+        autocomplete="off"
         v-bind="$attrs"
         :type="$attrs.type || 'text'"
         @input="$emit('update:modelValue', $event.target.value)"
