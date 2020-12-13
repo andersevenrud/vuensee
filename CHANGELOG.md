@@ -1,5 +1,9 @@
 # Changelog
 
+## 2020-12-13 - 0.8.0
+
+* Better styling for iOS and Android
+
 ## 2020-12-13 - 0.7.7
 
 * Updated some settings UI styles
