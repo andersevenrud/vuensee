@@ -42,6 +42,21 @@ body {
   }
 }
 
+/* Misc */
+::-webkit-scrollbar {
+  width: var(--vuensee-margin-half);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vuensee-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: currentColor;
+  border: 0 none;
+  border-radius: 0;
+}
+
 /* Resets */
 input,
 select,
@@ -49,6 +64,9 @@ textarea,
 button {
   font: inherit;
   box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 input:disabled,

@@ -65,6 +65,8 @@
   height: calc(2rem - 10px);
   background-color: currentColor;
   cursor: pointer;
+  border-radius: 0;
+  border: 0 none;
 }
 
 .range input[type=range]::-ms-thumb {

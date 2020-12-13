@@ -24,6 +24,7 @@
   background-color: var(--vuensee-accordian-background-color);
   padding: var(--vuensee-margin-half);
   cursor: pointer;
+  outline: 0 none;
 }
 
 .details[open] summary {

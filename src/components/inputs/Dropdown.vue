@@ -32,8 +32,6 @@
   background-color: var(--vuensee-input-background-color);
   display: block;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 .dropdown select:disabled {
   background-color: var(--vuensee-input-disabled-background-color);

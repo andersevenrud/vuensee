@@ -71,6 +71,7 @@
         <Button
           v-if="fullscreen"
           :title="t('controls.fullscreen')"
+          :disabled="isTouchDevice"
           @click="$emit('minimize')"
         >
           <MinimizeIcon />
@@ -79,6 +80,7 @@
         <Button
           v-else
           :title="t('controls.fullscreen')"
+          :disabled="isTouchDevice"
           @click="$emit('maximize')"
         >
           <MaximizeIcon />
@@ -122,6 +124,7 @@
 
 .controls button {
   border: 0 none;
+  outline: 0 none;
   background: transparent;
 }
 

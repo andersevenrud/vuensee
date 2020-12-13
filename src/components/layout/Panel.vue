@@ -15,13 +15,15 @@
 
 <style module>
 .panel {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 100;
   box-shadow: var(--vuensee-panel-shadow);
   background-color: var(--vuensee-panel-background-color);
   display: flex;
   flex-direction: column;
-  transition: all 0.5s;
+  transition: translate 0.5s;
 }
 
 @media screen and (max-width: 780px) {
@@ -31,7 +33,7 @@
 }
 
 .panelVisible {
-  max-height: 100%;
+  max-height: 100vh;
 }
 
 .panelInvisible {
