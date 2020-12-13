@@ -1,5 +1,12 @@
 # Changelog
 
+## 2020-12-13 - 0.7.0
+
+* Added UI for using touch device keyboard (#2)
+* Added Norwegian translations (#4)
+* Added configurable language setting (#4)
+* Added message on connection success
+
 ## 2020-12-12 - 0.6.0
 
 * Added viewport drag/move support
