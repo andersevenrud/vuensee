@@ -63,6 +63,7 @@ const _state = reactive({
   dragging: false,
   touchKeyboard: false,
   fullscreen: false,
+  panelOpen: true,
   clipboard: '',
 
   ...defaultConnectionStates,
@@ -140,6 +141,8 @@ export const updateFullscreen = fullscreen => (_state.fullscreen = fullscreen)
 
 export const updateCapabilities = capabilities => Object.assign(_state.capabilities, capabilities)
 
+export const togglePanelOpen = (panelOpen = !_state.panelOpen) => (_state.panelOpen = panelOpen)
+
 export const toggleDragging = (dragging = !_state.dragging) => (_state.dragging = dragging)
 
 export const toggleLogin = (showLogin = !_state.showLogin) => (_state.showLogin = showLogin)
@@ -188,7 +191,8 @@ export const connectionDeactivate = () => Object.assign(_state, {
 export const connectionActivated = () => Object.assign(_state, {
   ...defaultConnectionStates,
   ...defaultVisibility,
-  connected: true
+  connected: true,
+  panelOpen: false
 })
 
 export const connectionDeactivated = (reconnecting = false) => Object.assign(_state, {
@@ -197,7 +201,7 @@ export const connectionDeactivated = (reconnecting = false) => Object.assign(_st
   reconnecting,
   clipboard: '',
   touchKeyboard: false,
-  showSettings: !reconnecting,
+  panelOpen: !reconnecting,
   dragging: false,
   settings: {
     ..._state.settings,

@@ -96,12 +96,15 @@
     >
       <ConnectIcon />
     </Button>
+
+    <slot />
   </div>
 </template>
 
 <style module>
 .controls {
   display: flex;
+  position: relative;
 }
 
 .controls button {

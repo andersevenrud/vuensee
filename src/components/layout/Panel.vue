@@ -19,7 +19,6 @@
   z-index: 100;
   box-shadow: var(--vuensee-panel-shadow);
   background-color: var(--vuensee-panel-background-color);
-  transition: all 0.5s;
   display: flex;
   flex-direction: column;
 }
@@ -33,18 +32,17 @@
 
 .panelVisible {
   max-height: 100%;
-  min-width: 30rem;
 }
 
 .panelInvisible {
-  opacity: 0.5;
   width: auto;
-  transform: translateY(-90%);
+  transform: translateX(-100%) translateY(-50%);
+  margin-left: 24px; /* This is the icon size */
+  top: 50%;
 }
 
 .panelInvisible:hover {
   opacity: 1;
-  transform: translateY(0%);
 }
 </style>
 

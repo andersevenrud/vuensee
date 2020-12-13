@@ -6,7 +6,8 @@
 <template>
   <div :class="$style.app">
     <Panel
-      :visible="showSettings"
+      v-if="config.features.panel"
+      :visible="panelOpen"
       @mouseout="onMouseOut"
     >
       <Controls
@@ -30,35 +31,43 @@
         @toggle-keys="onToggleKeys"
         @toggle-clipboard="onToggleClipboard"
         @toggle-touch-keyboard="onToggleTouchKeyboard"
-      />
+      >
+        <div :class="{ [$style.toggler]: true, [$style.togglerOpen]: panelOpen }">
+          <Button @click="onTogglePanel">
+            <ChevronIcon :dir="panelOpen ? 'left' : 'right'" />
+          </Button>
+        </div>
+      </Controls>
 
-      <Power
-        v-show="showPower"
-        @shutdown="onPowerShutdown"
-        @reboot="onPowerReboot"
-        @reset="onPowerReset"
-      />
+      <template v-if="panelOpen">
+        <Power
+          v-show="showPower"
+          @shutdown="onPowerShutdown"
+          @reboot="onPowerReboot"
+          @reset="onPowerReset"
+        />
 
-      <Keys
-        v-show="showKeys"
-        :active="keys"
-        @toggle="onKeyToggle"
-        @send="onKeySend"
-      />
+        <Keys
+          v-show="showKeys"
+          :active="keys"
+          @toggle="onKeyToggle"
+          @send="onKeySend"
+        />
 
-      <Clipboard
-        v-show="showClipboard"
-        :current="clipboard"
-        @clear="onClipboardClear"
-      />
+        <Clipboard
+          v-show="showClipboard"
+          :current="clipboard"
+          @clear="onClipboardClear"
+        />
 
-      <Settings
-        v-if="config.features.settings"
-        v-show="showSettings"
-        :disabled="connected || connecting"
-        :settings="settings"
-        @update="onUpdateSettings"
-      />
+        <Settings
+          v-if="config.features.settings"
+          v-show="showSettings"
+          :disabled="connected || connecting"
+          :settings="settings"
+          @update="onUpdateSettings"
+        />
+      </template>
     </Panel>
 
     <Logo
@@ -104,6 +113,19 @@
   height: 100vh;
   top: 0;
   left: 0;
+}
+
+.toggler {
+  margin-left: auto;
+}
+
+.toggler button {
+  background-color: var(--vuensee-background-color);
+  padding: var(--vuensee-margin-half) 0;
+}
+
+.togglerOpen button {
+  margin-left: var(--vuensee-margin-half);
 }
 </style>
 
@@ -379,6 +401,14 @@ export default {
 
     onTouchKeyboardInput(key) {
       _client.sendKeyCommand(key, undefined)
+    },
+
+    onTogglePanel() {
+      store.togglePanelOpen()
+
+      if (document.activeElement) {
+        document.activeElement.blur()
+      }
     }
   }
 }

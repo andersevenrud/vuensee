@@ -43,7 +43,8 @@ const featureMap = [
   'clipboard',
   'fullscreen',
   'power',
-  'keys'
+  'keys',
+  'panel'
 ]
 
 const languageMap = {

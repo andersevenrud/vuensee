@@ -142,6 +142,8 @@
   overflow: auto;
   height: 100%;
   user-select: none;
+  width: 30rem;
+  max-width: 100%;
 }
 </style>
 

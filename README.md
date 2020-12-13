@@ -90,6 +90,7 @@ Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 | Environment variable            | URL parameter    | Type      | Default      |
 | ------------------------------- | ---------------- | --------- | ------------ |
 | `VITE_TITLE`                    |                  | String    | `vuensee`    |
+| `VITE_ENABLE_PANEL`             |                  | Boolean   | `true`       |
 | `VITE_ENABLE_SETTINGS`          |                  | Boolean   | `true`       |
 | `VITE_ENABLE_CLIPBOARD`         |                  | Boolean   | `true`       |
 | `VITE_ENABLE_FULLSCREEN`        |                  | Boolean   | `true`       |
