@@ -60,6 +60,7 @@ const initialSettings = {
 const _state = reactive({
   messages: [],
   dragging: false,
+  touchKeyboard: false,
   fullscreen: false,
   clipboard: '',
 
@@ -162,6 +163,10 @@ export const toggleClipboard = (showClipboard = !_state.showClipboard) => Object
   showClipboard
 })
 
+export const toggleTouchKeyboard = (touchKeyboard = !_state.touchKeyboard) => Object.assign(_state, {
+  touchKeyboard
+})
+
 export const clearClipboard = () => (_state.clipboard = '')
 
 export const updateClipboard = (clipboard) => (_state.clipboard = clipboard)
@@ -190,6 +195,7 @@ export const connectionDeactivated = (reconnecting = false) => Object.assign(_st
   ...defaultVisibility,
   reconnecting,
   clipboard: '',
+  touchKeyboard: false,
   showSettings: !reconnecting,
   dragging: false,
   settings: {

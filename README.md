@@ -95,6 +95,7 @@ Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 | `VITE_ENABLE_FULLSCREEN`        |                  | Boolean   | `true`       |
 | `VITE_ENABLE_POWER`             |                  | Boolean   | `true`       |
 | `VITE_ENABLE_KEYS`              |                  | Boolean   | `true`       |
+| `VITE_ENABLE_TOUCH_KEYBOARD`    |                  | Boolean   | `true`       |
 | `VITE_ENABLE_URL_SETTINGS`      |                  | Boolean   | `true`       |
 | `VITE_ENABLE_VIEWPORT_DRAGGING` |                  | Boolean   | `true`       |
 | `VITE_SETTINGS_AUTOCONNECT`     | `autoconnect`    | Boolean   | `false`      |

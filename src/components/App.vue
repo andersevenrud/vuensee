@@ -19,6 +19,7 @@
         :clip-to-window="settings.clipToWindow"
         :features="config.features"
         :dragging="dragging"
+        :touch-keyboard="touchKeyboard"
         @settings="onSettingsToggle"
         @drag="onDragToggle"
         @connect="onConnectRequest"
@@ -28,6 +29,7 @@
         @power="onPower"
         @toggle-keys="onToggleKeys"
         @toggle-clipboard="onToggleClipboard"
+        @toggle-touch-keyboard="onToggleTouchKeyboard"
       />
 
       <Power
@@ -77,6 +79,14 @@
       :messages="messages"
       @click="onMessageClick"
     />
+
+    <TouchKeyboard
+      v-if="config.features.touchKeyboard && touchKeyboard"
+      @focus="onTouchKeyboardFocus"
+      @blur="onTouchKeyboardBlur"
+      @hide="onTouchKeyboardHide"
+      @input="onTouchKeyboardInput"
+    />
   </div>
 </template>
 
@@ -98,7 +108,7 @@
 </style>
 
 <script>
-import { onBeforeMount, onBeforeUnmount } from 'vue'
+import { onBeforeMount, onBeforeUnmount,ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fullscreen } from '../utils/dom'
 import { VuenseeRFB, createBell } from '../utils/novnc'
@@ -113,8 +123,9 @@ import Settings from './layout/Settings.vue'
 import Login from './layout/Login.vue'
 import Messages from './layout/Messages.vue'
 import Logo from './layout/Logo.vue'
+import TouchKeyboard from './layout/TouchKeyboard.vue'
 
-let _client
+let _client = {}
 let _reconnectTimeout // TODO: Implement proper reconnect mechanic
 
 export default {
@@ -129,18 +140,20 @@ export default {
     Settings,
     Login,
     Messages,
-    Logo
+    Logo,
+    TouchKeyboard
   },
 
   setup() {
     const { t } = useI18n()
     const bell = createBell(config.bell)
+    const textarea = ref(null)
     const onFullscreenChange = () => store.updateFullscreen(!!fullscreen.element())
 
     onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
     onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
 
-    return { config, bell, t }
+    return { config, bell, t, textarea }
   },
 
   data() {
@@ -300,6 +313,10 @@ export default {
       store.toggleClipboard()
     },
 
+    onToggleTouchKeyboard() {
+      store.toggleTouchKeyboard()
+    },
+
     onPowerShutdown() {
       _client.machineShutdown()
     },
@@ -341,6 +358,22 @@ export default {
 
     onMessageClick(ev, { key }) {
       store.removeMessage(key)
+    },
+
+    onTouchKeyboardFocus() {
+      _client.focusOnClick = true
+    },
+
+    onTouchKeyboardBlur() {
+      _client.focusOnClick = false
+    },
+
+    onTouchKeyboardHide() {
+      store.toggleTouchKeyboard(false)
+    },
+
+    onTouchKeyboardInput(key) {
+      _client.sendKeyCommand(key, undefined)
     }
   }
 }

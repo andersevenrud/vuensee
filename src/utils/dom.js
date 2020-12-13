@@ -40,3 +40,45 @@ export const createAudioElement = (sources) => {
 
   return audio
 }
+
+export const inputKeyListener = (send) => {
+  const sendkeys = {
+    8: 'backspace',
+    9: 'tab',
+    13: 'enter'
+  }
+
+  let skipInput = false
+
+  return {
+    down: (ev) => {
+      skipInput = false
+      const found = sendkeys[ev.keyCode]
+
+      if (found) {
+        skipInput = true
+        send(found)
+      }
+    },
+
+    up: () => {
+      skipInput = false
+    },
+
+    press: (ev) => {
+      if (sendkeys[ev.keyCode]) {
+        skipInput = true
+      }
+    },
+
+    input: (ev) => {
+      if (skipInput) {
+        return
+      }
+
+      const chars = Array.from(ev.target.value)
+      chars.forEach(send)
+      ev.target.value = ''
+    }
+  }
+}

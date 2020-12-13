@@ -20,6 +20,10 @@
   padding: var(--vuensee-margin-half);
 }
 
+.button * {
+  pointer-events: none;
+}
+
 .active {
   background: var(--vuensee-background-color) !important;
 }

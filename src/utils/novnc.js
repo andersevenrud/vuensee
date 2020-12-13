@@ -5,9 +5,10 @@
  */
 import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
+import keysyms from '@novnc/novnc/core/input/keysymdef'
 import { createAudioElement } from './dom'
 
-export { hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
+export { isTouchDevice, hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
 
 const events = [
   'disconnect',
@@ -31,7 +32,9 @@ export const keyMappings = {
   tab: [KeyTable.XK_Tab, 'Tab'],
   ctrl: [KeyTable.XK_Control_L, 'ControlLeft'],
   alt: [KeyTable.XK_Alt_L, 'AltLeft'],
-  windows: [KeyTable.XK_Super_L, 'MetaLeft']
+  windows: [KeyTable.XK_Super_L, 'MetaLeft'],
+  backspace: [KeyTable.XK_BackSpace, 'Backspace'],
+  enter: [KeyTable.XK_Enter, 'Enter']
 }
 
 export const createBell = name => createAudioElement([
@@ -60,8 +63,13 @@ export class VuenseeRFB extends RFB {
   }
 
   sendKeyCommand(name, value = true) {
-    const [keysym, code] = keyMappings[name]
-    this.sendKey(keysym, code, value)
+    if (keyMappings[name]) {
+      const [keysym, code] = keyMappings[name]
+      this.sendKey(keysym, code, value)
+    } else {
+      const keysym = keysyms.lookup(name)
+      this.sendKey(keysym)
+    }
   }
 
   static connect({

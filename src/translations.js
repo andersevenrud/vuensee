@@ -14,7 +14,8 @@ export default {
       power: 'Toggle power buttons',
       connect: 'Connect',
       disconnect: 'Disconnect',
-      drag: 'Drag VIewport'
+      drag: 'Drag VIewport',
+      touchKeyboard: 'Touch device keyboard'
     },
 
     keys: {

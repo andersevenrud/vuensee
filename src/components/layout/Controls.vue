@@ -25,6 +25,17 @@
     </Button>
 
     <Button
+      v-if="features.touchKeyboard && !viewOnly"
+      name="touchKeyboardToggle"
+      :disabled="!connected || !isTouchDevice"
+      :title="t('controls.touchKeyboard')"
+      :active="touchKeyboard"
+      @click="$emit('toggle-touch-keyboard')"
+    >
+      <TouchKeyboardIcon />
+    </Button>
+
+    <Button
       v-if="features.clipboard && !viewOnly"
       :title="t('controls.clipboard')"
       :disabled="!connected"
@@ -101,6 +112,7 @@
 
 <script>
 import { useI18n } from 'vue-i18n'
+import { isTouchDevice } from '../../utils/novnc'
 
 export default {
   name: 'Controls',
@@ -141,6 +153,10 @@ export default {
     clipToWindow: {
       type: Boolean,
       required: true
+    },
+    touchKeyboard: {
+      type: Boolean,
+      required: true
     }
   },
 
@@ -152,13 +168,15 @@ export default {
     'connect',
     'toggle-keys',
     'toggle-clipboard',
+    'toggle-touch-keyboard',
     'power',
-    'drag'
+    'drag',
+    'power'
   ],
 
   setup() {
     const { t } = useI18n()
-    return { t }
+    return { t, isTouchDevice }
   }
 }
 </script>
