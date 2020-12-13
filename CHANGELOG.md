@@ -1,5 +1,9 @@
 # Changelog
 
+## 2020-12-13 - 0.7.6
+
+* Some minor cleanups and UI improvements
+
 ## 2020-12-13 - 0.7.5
 
 * Added a panel toggle instead of relying on pointer (#6)
