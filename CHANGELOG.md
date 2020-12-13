@@ -1,5 +1,10 @@
 # Changelog
 
+## 2020-12-13 - 0.7.5
+
+* Added a panel toggle instead of relying on pointer (#6)
+* Turn off autocomplete for input fields
+
 ## 2020-12-13 - 0.7.0
 
 * Added UI for using touch device keyboard (#2)
