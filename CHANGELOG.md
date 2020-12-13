@@ -1,5 +1,9 @@
 # Changelog
 
+## 2020-12-13 - 0.7.7
+
+* Updated some settings UI styles
+
 ## 2020-12-13 - 0.7.6
 
 * Some minor cleanups and UI improvements
