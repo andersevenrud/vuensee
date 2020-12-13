@@ -16,6 +16,7 @@ import {
 } from './utils/config'
 
 const settingsMap = [
+  ['language', parseString],
   ['messageTimeout', parseNumber],
   ['autoconnect', parseBoolean],
   ['bell', parseBoolean],
@@ -45,17 +46,26 @@ const featureMap = [
   'keys'
 ]
 
+const languageMap = {
+  nb: 'no'
+}
+
 const features = readFeatures(featureMap)
 const dotenvSettings = readSettings(settingsMap)
 const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
   ? readUrlSettings(settingsMap)
   : {}
 
+const languages = (navigator.languages || [])
+  .map(name => name.split(/-|_/)[0])
+  .map(name => languageMap[name] || name)
+
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
   bell: 'sounds/bell',
   features,
   settings: {
+    language: languages[0],
     ...dotenvSettings,
     ...urlSettings
   }

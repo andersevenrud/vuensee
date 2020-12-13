@@ -98,6 +98,7 @@ Some settings can be overrided with URL parameters on runtime, ex: `?a=1&b=2`.
 | `VITE_ENABLE_TOUCH_KEYBOARD`    |                  | Boolean   | `true`       |
 | `VITE_ENABLE_URL_SETTINGS`      |                  | Boolean   | `true`       |
 | `VITE_ENABLE_VIEWPORT_DRAGGING` |                  | Boolean   | `true`       |
+| `VITE_SETTINGS_LANGUAGE`        | `language`       | String    | Auto         |
 | `VITE_SETTINGS_AUTOCONNECT`     | `autoconnect`    | Boolean   | `false`      |
 | `VITE_SETTINGS_BELL`            | `bell`           | Boolean   | `true`       |
 | `VITE_SETTINGS_SHARED_MODE`     | `sharedMode`     | Boolean   | `true`       |

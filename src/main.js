@@ -22,14 +22,15 @@ import DisconnectIcon from './components/icons/DisconnectIcon.vue'
 import ConnectIcon from './components/icons/ConnectIcon.vue'
 import DragIcon from './components/icons/DragIcon.vue'
 import TouchKeyboardIcon from './components/icons/TouchKeyboardIcon.vue'
-import messages from './translations'
+import * as messages from './translations'
+import config from './config'
 import './assets/index.css'
 import './assets/theme.css'
 
 const i18n = createI18n({
   legacy: false,
-  locale: 'en',
-  messages
+  locale: config.settings.language || 'en',
+  messages: { ...messages }
 })
 
 const app = createApp(App)

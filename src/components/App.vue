@@ -108,7 +108,7 @@
 </style>
 
 <script>
-import { onBeforeMount, onBeforeUnmount,ref } from 'vue'
+import { onBeforeMount, onBeforeUnmount, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fullscreen } from '../utils/dom'
 import { VuenseeRFB, createBell } from '../utils/novnc'
@@ -145,10 +145,14 @@ export default {
   },
 
   setup() {
-    const { t } = useI18n()
+    const { t, locale } = useI18n()
     const bell = createBell(config.bell)
     const textarea = ref(null)
     const onFullscreenChange = () => store.updateFullscreen(!!fullscreen.element())
+
+    watch(() => store.state.settings.language, (newLocale) => {
+      locale.value = newLocale
+    })
 
     onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
     onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))

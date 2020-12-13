@@ -36,6 +36,7 @@ const initialCapabilities = {
 }
 
 const initialSettings = {
+  language: 'en',
   autoconnect: false,
   username: '',
   password: '',
