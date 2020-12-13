@@ -21,11 +21,11 @@
   background-color: var(--vuensee-panel-background-color);
   display: flex;
   flex-direction: column;
+  transition: all 0.5s;
 }
 
 @media screen and (max-width: 780px) {
   .panel {
-    min-width: auto !important;
     width: 100%;
   }
 }
@@ -36,13 +36,22 @@
 
 .panelInvisible {
   width: auto;
-  transform: translateX(-100%) translateY(-50%);
-  margin-left: 24px; /* This is the icon size */
-  top: 50%;
+  transform: translateX(-100%);
+  margin-left: var(--vuensee-icon-size);
+  animation: scrollDown 0.5s normal forwards;
 }
 
 .panelInvisible:hover {
   opacity: 1;
+}
+
+@keyframes scrollDown {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 50%;
+  }
 }
 </style>
 

@@ -22,6 +22,12 @@
 
 .button * {
   pointer-events: none;
+  vertical-align: middle;
+}
+
+.button svg {
+  width: var(--vuensee-icon-size);
+  height: var(--vuensee-icon-size),
 }
 
 .active {

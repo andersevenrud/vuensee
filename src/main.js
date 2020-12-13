@@ -12,6 +12,7 @@ import Dropdown from './components/inputs/Dropdown.vue'
 import Range from './components/inputs/Range.vue'
 import Button from './components/inputs/Button.vue'
 import Checkbox from './components/inputs/Checkbox.vue'
+import Icon from './components/icons/Icon.vue'
 import SettingsIcon from './components/icons/SettingsIcon.vue'
 import KeysIcon from './components/icons/KeysIcon.vue'
 import ClipboardIcon from './components/icons/ClipboardIcon.vue'
@@ -42,6 +43,7 @@ app.component('Dropdown', Dropdown)
 app.component('Range', Range)
 app.component('Button', Button)
 app.component('Checkbox', Checkbox)
+app.component('Icon', Icon)
 app.component('SettingsIcon', SettingsIcon)
 app.component('KeysIcon', KeysIcon)
 app.component('ClipboardIcon', ClipboardIcon)

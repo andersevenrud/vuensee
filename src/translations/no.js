@@ -6,6 +6,7 @@
 
 export default {
   controls: {
+    panel: 'Skjul/Vis',
     settings: 'Instillinger',
     keys: 'Send tastetrykk',
     clipboard: 'Utklippstavle',

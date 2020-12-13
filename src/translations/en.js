@@ -6,6 +6,7 @@
 
 export default {
   controls: {
+    panel: 'Toggle visibility',
     settings: 'Toggle settings',
     keys: 'Send keys',
     clipboard: 'Toggle clipboard',

@@ -37,4 +37,6 @@
   --vuensee-message-warn-text-color: currentColor;
   --vuensee-message-error-background-color: #f44336;
   --vuensee-message-error-text-color: currentColor;
+
+  --vuensee-icon-size: 1.5rem;
 }

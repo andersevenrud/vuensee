@@ -83,7 +83,7 @@ const _state = reactive({
   },
 
   // Overrides
-  showSettings: config.features.settings,
+  showSettings: config.features.settings
 })
 
 export const state = readonly(_state)

@@ -9,9 +9,7 @@
       <span v-if="label">
         {{ label }}
       </span>
-      <textarea
-        v-bind="$attrs"
-      />
+      <textarea v-bind="$attrs" />
     </label>
   </div>
 </template>

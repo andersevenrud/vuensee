@@ -58,6 +58,6 @@ export default {
     if (this.autofocus) {
       this.$refs.input.focus()
     }
-  },
+  }
 }
 </script>

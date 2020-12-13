@@ -21,6 +21,7 @@
         :features="config.features"
         :dragging="dragging"
         :touch-keyboard="touchKeyboard"
+        :panel-open="panelOpen"
         @settings="onSettingsToggle"
         @drag="onDragToggle"
         @connect="onConnectRequest"
@@ -31,16 +32,12 @@
         @toggle-keys="onToggleKeys"
         @toggle-clipboard="onToggleClipboard"
         @toggle-touch-keyboard="onToggleTouchKeyboard"
-      >
-        <div :class="{ [$style.toggler]: true, [$style.togglerOpen]: panelOpen }">
-          <Button @click="onTogglePanel">
-            <ChevronIcon :dir="panelOpen ? 'left' : 'right'" />
-          </Button>
-        </div>
-      </Controls>
+        @toggle-panel="onTogglePanel"
+      />
 
       <template v-if="panelOpen">
         <Power
+          v-if="config.features.power"
           v-show="showPower"
           @shutdown="onPowerShutdown"
           @reboot="onPowerReboot"
@@ -48,6 +45,7 @@
         />
 
         <Keys
+          v-if="config.features.keys"
           v-show="showKeys"
           :active="keys"
           @toggle="onKeyToggle"
@@ -55,6 +53,7 @@
         />
 
         <Clipboard
+          v-if="config.features.clipboard"
           v-show="showClipboard"
           :current="clipboard"
           @clear="onClipboardClear"
@@ -114,19 +113,6 @@
   top: 0;
   left: 0;
 }
-
-.toggler {
-  margin-left: auto;
-}
-
-.toggler button {
-  background-color: var(--vuensee-background-color);
-  padding: var(--vuensee-margin-half) 0;
-}
-
-.togglerOpen button {
-  margin-left: var(--vuensee-margin-half);
-}
 </style>
 
 <script>
@@ -176,6 +162,7 @@ export default {
       locale.value = newLocale
     })
 
+    onBeforeMount(() => (document.title = config.title))
     onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
     onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
 
@@ -184,10 +171,6 @@ export default {
 
   data() {
     return store.state
-  },
-
-  beforeMount() {
-    document.title = config.title
   },
 
   mounted() {
@@ -406,9 +389,11 @@ export default {
     onTogglePanel() {
       store.togglePanelOpen()
 
-      if (document.activeElement) {
-        document.activeElement.blur()
-      }
+      setTimeout(() => {
+        if (document.activeElement) {
+          document.activeElement.blur()
+        }
+      }, 1)
     }
   }
 }
