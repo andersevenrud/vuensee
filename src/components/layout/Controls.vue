@@ -59,6 +59,15 @@
       </Button>
 
       <Button
+        v-if="features.power && !viewOnly"
+        :title="t('controls.power')"
+        :disabled="connecting || !power"
+        @click="$emit('power', $event)"
+      >
+        <PowerIcon />
+      </Button>
+
+      <Button
         v-if="features.viewportDragging"
         :title="t('controls.drag')"
         :disabled="!connected || !clipToWindow"
@@ -87,15 +96,6 @@
           <MaximizeIcon />
         </Button>
       </template>
-
-      <Button
-        v-if="features.power && !viewOnly"
-        :title="t('controls.power')"
-        :disabled="connecting || !power"
-        @click="$emit('power', $event)"
-      >
-        <PowerIcon />
-      </Button>
 
       <Button
         v-if="connecting || reconnecting || connected"
