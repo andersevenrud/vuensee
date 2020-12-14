@@ -1,5 +1,12 @@
 # Changelog
 
+## 2020-12-15 - 0.9.1
+
+* Updated README
+* Updated dotenv example
+* Slight build optimizations
+* Temporary new favicon (#1)
+
 ## 2020-12-14 - 0.9.0
 
 * Use Arial as default font (#1)
