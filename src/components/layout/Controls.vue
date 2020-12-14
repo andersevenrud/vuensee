@@ -10,7 +10,7 @@
     <div :class="{ [$style.togglerClosed]: !panelOpen }">
       <Button
         :title="t('controls.panel')"
-        @click="$emit('toggle-panel')"
+        @click="$emit('toggle-panel', $event)"
       >
         <ChevronIcon :dir="panelOpen ? 'left' : 'right'" />
       </Button>
@@ -23,7 +23,7 @@
       <Button
         v-if="features.settings"
         :title="t('controls.settings')"
-        @click="$emit('settings')"
+        @click="$emit('settings', $event)"
       >
         <SettingsIcon />
       </Button>
@@ -32,7 +32,7 @@
         v-if="features.keys && !viewOnly"
         :title="t('controls.keys')"
         :disabled="!connected"
-        @click="$emit('toggle-keys')"
+        @click="$emit('toggle-keys', $event)"
       >
         <KeysIcon />
       </Button>
@@ -43,7 +43,7 @@
         :disabled="!connected || !isTouchDevice"
         :title="t('controls.touchKeyboard')"
         :active="touchKeyboard"
-        @click="$emit('toggle-touch-keyboard')"
+        @click="$emit('toggle-touch-keyboard', $event)"
       >
         <TouchKeyboardIcon />
       </Button>
@@ -52,7 +52,7 @@
         v-if="features.clipboard && !viewOnly"
         :title="t('controls.clipboard')"
         :disabled="!connected"
-        @click="$emit('toggle-clipboard')"
+        @click="$emit('toggle-clipboard', $event)"
       >
         <ClipboardIcon />
       </Button>
@@ -62,7 +62,7 @@
         :title="t('controls.drag')"
         :disabled="!connected || !clipToWindow"
         :active="dragging"
-        @click="$emit('drag')"
+        @click="$emit('drag', $event)"
       >
         <DragIcon />
       </Button>
@@ -72,7 +72,7 @@
           v-if="fullscreen"
           :title="t('controls.fullscreen')"
           :disabled="isTouchDevice"
-          @click="$emit('minimize')"
+          @click="$emit('minimize', $event)"
         >
           <MinimizeIcon />
         </Button>
@@ -81,7 +81,7 @@
           v-else
           :title="t('controls.fullscreen')"
           :disabled="isTouchDevice"
-          @click="$emit('maximize')"
+          @click="$emit('maximize', $event)"
         >
           <MaximizeIcon />
         </Button>
@@ -91,7 +91,7 @@
         v-if="features.power && !viewOnly"
         :title="t('controls.power')"
         :disabled="connecting || !power"
-        @click="$emit('power')"
+        @click="$emit('power', $event)"
       >
         <PowerIcon />
       </Button>
@@ -99,7 +99,7 @@
       <Button
         v-if="connecting || reconnecting || connected"
         :title="t('controls.disconnect')"
-        @click="$emit('disconnect')"
+        @click="$emit('disconnect', $event)"
       >
         <DisconnectIcon />
       </Button>
@@ -107,7 +107,7 @@
       <Button
         v-else
         :title="t('controls.connect')"
-        @click="$emit('connect')"
+        @click="$emit('connect', $event)"
       >
         <ConnectIcon />
       </Button>
