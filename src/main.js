@@ -34,6 +34,7 @@ import './assets/theme.css'
 const i18n = createI18n({
   legacy: false,
   locale: config.settings.language || 'en',
+  fallbackLocale: 'en',
   messages: { ...messages }
 })
 
