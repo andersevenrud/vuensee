@@ -24,40 +24,11 @@ for more information.
 There are three ways to build and run this application:
 
 > Alternatively you can [download](https://github.com/andersevenrud/vuensee/releases)
-> a pre-built release from Github.
+> a pre-built release from Github ready for usage.
 
-* [Docker Image](#docker-image)
-* [Docker Compose](#docker-compose)
 * [Standard](#standard)
-
-### Docker Image
-
-Build and run your own production image:
-
-```shell
-docker build -t vuensee:custom .
-docker run -p 8080:80 vuensee:custom
-```
-
-Or run a pre-built docker image (same as demo):
-
-```shell
-docker run -p 8080:80 docker.pkg.github.com/andersevenrud/vuensee/vuensee:latest
-```
-
-### Docker Compose
-
-To start up the development environment:
-
-```shell
-docker-compose up
-```
-
-Or to create a production build:
-
-```shell
-docker-compose run --rm vuensee npm run build
-```
+* [Docker Compose](#docker-compose)
+* [Docker Image](#docker-image)
 
 ### Standard
 
@@ -77,6 +48,35 @@ Or to create a production build:
 
 ```shell
 npm run build
+```
+
+### Docker Compose
+
+To start up the development environment:
+
+```shell
+docker-compose up
+```
+
+You can also create a production build:
+
+```shell
+docker-compose run --rm vuensee npm run build
+```
+
+### Docker Image
+
+Create and run a docker image using nginx with a production build:
+
+```shell
+docker build -t vuensee:custom .
+docker run -p 8080:80 vuensee:custom
+```
+
+Or run a pre-built image with nginx:
+
+```shell
+docker run -p 8080:80 docker.pkg.github.com/andersevenrud/vuensee/vuensee:latest
 ```
 
 ## Configuration
