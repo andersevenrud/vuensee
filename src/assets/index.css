@@ -13,7 +13,7 @@ body {
 html {
   color: var(--vuensee-text-color);
   font-size: var(--vuensee-font-size-normal);
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -84,4 +84,8 @@ button:not(:disabled) {
 
 button {
   cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
 }
