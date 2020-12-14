@@ -1,5 +1,11 @@
 # Changelog
 
+## 2020-12-14 - 0.9.0
+
+* Use Arial as default font (#1)
+* Nicer ranged input stylings (#1)
+* Added support for localStorage settings (#7)
+
 ## 2020-12-14 - 0.8.5
 
 * Updated i18n integration

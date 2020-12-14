@@ -11,7 +11,7 @@ Check out the demo [here](https://andersevenrud.github.io/vuensee/index.html).
 
 ## Requirements
 
-Runs on any modern browser.
+Runs on any *modern* browser.
 
 Either Docker or Node 14+ is required for building and development.
 
