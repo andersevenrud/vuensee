@@ -50,8 +50,8 @@ export class VuenseeRFB extends RFB {
     this.clipViewport = settings.clipToWindow
     this.scaleViewport = settings.scalingMode === 'scale'
     this.resizeSession = settings.scalingMode === 'remote'
-    this.qualityLevel = settings.quality
-    this.compressionLevel = settings.compression
+    this.qualityLevel = parseInt(settings.quality, 10)
+    this.compressionLevel = parseInt(settings.compression, 10)
     this.showDotCursor = settings.dotCursor
     this.viewOnly = settings = settings.viewOnly
     this.dragViewport = !this.clipViewport && this.dragViewport
