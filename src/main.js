@@ -26,7 +26,8 @@ import DragIcon from './components/icons/DragIcon.vue'
 import TouchKeyboardIcon from './components/icons/TouchKeyboardIcon.vue'
 import ChevronIcon from './components/icons/ChevronIcon.vue'
 import CheckIcon from './components/icons/CheckIcon.vue'
-import * as messages from './translations'
+import en from './translations/en'
+import no from './translations/no'
 import config from './config'
 import './assets/index.css'
 import './assets/theme.css'
@@ -35,7 +36,10 @@ const i18n = createI18n({
   legacy: false,
   locale: config.settings.language || 'en',
   fallbackLocale: 'en',
-  messages: { ...messages }
+  messages: {
+    en,
+    no
+  }
 })
 
 const app = createApp(App)
