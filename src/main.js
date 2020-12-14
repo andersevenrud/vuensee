@@ -1,4 +1,4 @@
-/*
+/*!
  * vuensee
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @link https://github.com/andersevenrud/vuensee

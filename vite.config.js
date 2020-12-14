@@ -1,5 +1,10 @@
 const config = {
-  base: ''
+  base: '',
+  terserOptions: {
+    format: {
+      comments: /^!/
+    }
+  }
 }
 
 if (process.env.DOCKER_DEV_PORT) {
