@@ -120,6 +120,8 @@ import { onBeforeMount, onBeforeUnmount, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fullscreen } from '../utils/dom'
 import { VuenseeRFB, createBell } from '../utils/novnc'
+import { localStorageSettings } from '../utils/config'
+import { diffObject } from '../utils/primitives'
 import * as store from '../store'
 import config from '../config'
 import Panel from './layout/Panel.vue'
@@ -193,7 +195,8 @@ export default {
     },
 
     onUpdateSettings({ key, value }) {
-      store.updateSettings({
+      const oldSettings = { ...this.settings }
+      const newSettings = store.updateSettings({
         [key]: value
       })
 
@@ -202,6 +205,12 @@ export default {
           dragging: this.dragging
         })
       }
+
+      if (['password'].includes(key)) {
+        return
+      }
+
+      localStorageSettings.assign(diffObject(oldSettings, newSettings))
     },
 
     onError(message) {

@@ -113,7 +113,7 @@ export const updateSettings = (settings) => {
     newSettings.port = newPort
   }
 
-  Object.assign(_state.settings, newSettings)
+  return Object.assign(_state.settings, newSettings)
 }
 
 export const removeMessage = (key) => {

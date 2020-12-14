@@ -12,7 +12,9 @@ import {
   parseNumber,
   parseString,
   featureCheck,
-  fromFeatureEnv
+  fromFeatureEnv,
+  localStorageSettings,
+  hasUrlParameter
 } from './utils/config'
 
 const settingsMap = [
@@ -37,6 +39,8 @@ const settingsMap = [
 ]
 
 const featureMap = [
+  'localstorageSettings',
+  'urlSettings',
   'viewportDragging',
   'touchKeyboard',
   'settings',
@@ -53,6 +57,9 @@ const languageMap = {
 
 const features = readFeatures(featureMap)
 const dotenvSettings = readSettings(settingsMap)
+const localSettings = hasUrlParameter('_clear')
+  ? localStorageSettings.clear()
+  : localStorageSettings.load()
 const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
   ? readUrlSettings(settingsMap)
   : {}
@@ -68,6 +75,7 @@ export default {
   settings: {
     language: languages[0],
     ...dotenvSettings,
+    ...localSettings,
     ...urlSettings
   }
 }

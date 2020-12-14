@@ -9,3 +9,9 @@ export const camelToSnake = str => str
   .toUpperCase()
 
 export const isBoolean = str => ['1', 'on', 'true'].includes(String(str).toLowerCase())
+
+export const diffObject = (a, b) => Object.fromEntries(
+  Object
+    .entries(b)
+    .filter(([k, v]) => (k in a && a[k] !== v))
+)
