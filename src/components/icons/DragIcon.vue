@@ -1,3 +1,8 @@
+<!--
+ feathericons
+ @link https://github.com/feathericons/feather
+ @license MIT
+-->
 <template>
   <Icon>
     <polyline points="5 9 2 12 5 15" />

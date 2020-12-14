@@ -1,3 +1,8 @@
+<!--
+ feathericons
+ @link https://github.com/feathericons/feather
+ @license MIT
+-->
 <template>
   <Icon>
     <circle
