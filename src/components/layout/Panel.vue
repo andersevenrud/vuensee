@@ -23,7 +23,7 @@
   background-color: var(--vuensee-panel-background-color);
   display: flex;
   flex-direction: column;
-  transition: translate 0.5s;
+  transition: all 0.5s;
 }
 
 @media screen and (max-width: 780px) {
