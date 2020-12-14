@@ -1,5 +1,10 @@
 # Changelog
 
+## 2020-12-14 - 0.8.5
+
+* Updated i18n integration
+* Added fallback locale
+
 ## 2020-12-13 - 0.8.0
 
 * Better styling for iOS and Android
