@@ -1,5 +1,12 @@
 # Changelog
 
+## 2020-12-15 - 0.9.2
+
+* Updated UI focus state styles (#1)
+* Re-arranged some control buttons (#1)
+* Optimized favicon (#1)
+* Added parseInt on some RFB settings
+
 ## 2020-12-15 - 0.9.1
 
 * Updated README
