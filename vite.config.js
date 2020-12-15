@@ -4,6 +4,13 @@ const config = {
     format: {
       comments: /^!/
     }
+  },
+  optimizeDeps: {
+    include: [
+      '@novnc/novnc/core/input/keysym',
+      '@novnc/novnc/core/input/keysymdef',
+      '@novnc/novnc/core/util/browser.js'
+    ]
   }
 }
 
