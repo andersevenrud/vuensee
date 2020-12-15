@@ -1,5 +1,9 @@
 # Changelog
 
+## 2020-12-15 - 0.9.3
+
+* Minor cleanups and improvements
+
 ## 2020-12-15 - 0.9.2
 
 * Updated UI focus state styles (#1)
