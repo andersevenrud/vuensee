@@ -58,7 +58,7 @@ export const detectSettings = (currentSettings, newSettings) => {
   }
 
   // Auto detect port if no custom port was defined
-  const { port, ssl } = currentSettings
+  const { port, ssl } = settings
   const newPort = port === 80 && ssl === true
     ? 443
     : (port === 443 && ssl === false ? 80 : undefined)

@@ -21,6 +21,7 @@
   font-size: var(--vuensee-logo-font-size);
   text-shadow: var(--vuensee-logo-text-shadow);
   opacity: 0.8;
+  user-select: none;
 }
 </style>
 

@@ -75,6 +75,7 @@
     />
 
     <div
+      v-show="connected"
       ref="view"
       :class="$style.vnc"
     />

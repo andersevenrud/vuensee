@@ -24,10 +24,15 @@ export const fullscreen = {
     document.msFullscreenElement
 }
 
-export const getTargetInputValue = ev =>
-  ev.target.type === 'checkbox'
-    ? ev.target.checked
-    : ev.target.value
+export const getTargetInputValue = (ev) => {
+  if (ev.target.type === 'checkbox') {
+    return ev.target.checked
+  } else if (ev.target.type === 'number' || ev.target.type === 'range') {
+    return parseInt(ev.target.value, 10)
+  }
+
+  return ev.target.value
+}
 
 export const createAudioElement = (sources) => {
   const audio = new Audio()
