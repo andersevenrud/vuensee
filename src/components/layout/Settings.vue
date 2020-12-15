@@ -7,7 +7,7 @@
 <template>
   <div
     ref="root"
-    :class="$style.root"
+    :class="$style.settings"
   >
     <form
       :class="$style.form"
@@ -139,16 +139,18 @@
 </template>
 
 <style module>
-.root {
+.settings {
   overflow: auto;
   height: 100%;
   user-select: none;
   width: 30rem;
   max-width: 100%;
+  padding: 1px 0;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 780px) {
-  .root {
+  .settings {
     width: 100%;
   }
 }

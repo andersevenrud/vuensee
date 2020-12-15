@@ -24,7 +24,7 @@
   -moz-appearance: none;
   width: 1rem;
   height: 2rem;
-  height: 2.3rem;
+  height: 2rem;
   background-color: currentColor;
   cursor: pointer;
   border-radius: 0;
@@ -52,11 +52,14 @@
   width: 100%;
   height: 2.375rem;
 }
+.range input:focus {
+  outline: var(--vuensee-input-outline);
+}
 
 .range input[type=range]::-webkit-slider-thumb {
   @include slider();
 
-  margin-top: -0.75rem;
+  margin-top: -0.65rem;
 }
 .range input[type=range]::-moz-range-thumb {
   @include slider();

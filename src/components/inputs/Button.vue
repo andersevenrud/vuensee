@@ -21,6 +21,10 @@
   padding: var(--vuensee-margin-half);
 }
 
+.button:focus {
+  outline: var(--vuensee-input-outline);
+}
+
 .button * {
   pointer-events: none;
   vertical-align: middle;

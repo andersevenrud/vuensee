@@ -24,6 +24,11 @@
 </template>
 
 <style module>
+.checkbox {
+  overflow: hidden;
+  position: relative;
+}
+
 .checkbox label {
   display: inline-flex;
   align-items: center;
@@ -31,10 +36,17 @@
 }
 
 .checkbox input {
-  display: none;
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+}
+
+.checkbox input:focus + span {
+  outline: var(--vuensee-input-outline);
 }
 
 .overlay {
+  margin: 1px;
   width: 1rem;
   height: 1rem;
   margin-right: var(--vuensee-margin-half);

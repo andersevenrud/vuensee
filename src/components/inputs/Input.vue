@@ -29,6 +29,9 @@
   display: block;
   width: 100%;
 }
+.input input:focus {
+  outline: var(--vuensee-input-outline);
+}
 .input input:disabled {
   background-color: var(--vuensee-input-disabled-background-color);
 }

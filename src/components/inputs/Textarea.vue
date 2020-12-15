@@ -24,6 +24,9 @@
   display: block;
   width: 100%;
 }
+.textarea textarea:focus {
+  outline: var(--vuensee-input-outline);
+}
 .textarea textarea input:disabled {
   background-color: var(--vuensee-input-disabled-background-color);
 }

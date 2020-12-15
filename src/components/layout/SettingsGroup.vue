@@ -9,7 +9,10 @@
     ref="details"
     :class="$style.details"
   >
-    <summary>{{ label }}</summary>
+    <summary>
+      {{ label }}
+    </summary>
+
     <div>
       <slot />
     </div>
@@ -25,7 +28,9 @@
   background-color: var(--vuensee-accordian-background-color);
   padding: var(--vuensee-margin-half);
   cursor: pointer;
-  outline: 0 none;
+}
+.details summary:focus {
+  outline: var(--vuensee-input-outline);
 }
 
 .details[open] summary {

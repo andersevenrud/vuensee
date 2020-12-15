@@ -34,6 +34,9 @@
   display: block;
   width: 100%;
 }
+.dropdown select:focus {
+  outline: var(--vuensee-input-outline);
+}
 .dropdown select:disabled {
   background-color: var(--vuensee-input-disabled-background-color);
 }
