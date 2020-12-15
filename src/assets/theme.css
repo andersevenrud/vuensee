@@ -40,4 +40,6 @@
   --vuensee-message-error-text-color: currentColor;
 
   --vuensee-icon-size: 1.5rem;
+
+  --vuensee-default-transition: all 0.25s;
 }

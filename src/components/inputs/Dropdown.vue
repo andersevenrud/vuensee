@@ -33,6 +33,7 @@
   background-color: var(--vuensee-input-background-color);
   display: block;
   width: 100%;
+  transition: var(--vuensee-default-transition);
 }
 .dropdown select:focus {
   outline: var(--vuensee-input-outline);

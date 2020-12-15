@@ -47,10 +47,10 @@ import { useI18n } from 'vue-i18n'
 const buttons = [
   ['toggle', 'ctrl'],
   ['toggle', 'alt'],
-  ['send', 'windows'],
-  ['send','tab'],
-  ['send','esc'],
-  ['send','cad']
+  ['toggle', 'windows'],
+  ['send', 'tab'],
+  ['send', 'esc'],
+  ['send', 'cad']
 ]
 
 export default {

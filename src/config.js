@@ -57,10 +57,13 @@ const languageMap = {
 }
 
 const features = readFeatures(featureMap)
+
 const dotenvSettings = readSettings(settingsMap)
+
 const localSettings = hasUrlParameter('_clear')
   ? localStorageSettings.clear()
   : localStorageSettings.load()
+
 const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
   ? readUrlSettings(settingsMap)
   : {}
@@ -73,6 +76,9 @@ export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
   bell: 'sounds/bell',
   features,
+  localStorageBlacklist: [
+    'password'
+  ],
   settings: {
     language: languages[0],
     ...dotenvSettings,

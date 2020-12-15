@@ -19,6 +19,7 @@
   border: var(--vuensee-input-border);
   background-color: var(--vuensee-input-background-color);
   padding: var(--vuensee-margin-half);
+  transition: var(--vuensee-default-transition);
 }
 
 .button:focus {

@@ -141,18 +141,9 @@
 <style module>
 .settings {
   overflow: auto;
-  height: 100%;
   user-select: none;
-  width: 30rem;
-  max-width: 100%;
-  padding: 1px 0;
   box-sizing: border-box;
-}
-
-@media screen and (max-width: 780px) {
-  .settings {
-    width: 100%;
-  }
+  padding: 1px 0;
 }
 </style>
 

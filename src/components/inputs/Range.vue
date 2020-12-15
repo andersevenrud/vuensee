@@ -28,6 +28,7 @@
   background-color: currentColor;
   cursor: pointer;
   border-radius: 0;
+  transition: var(--vuensee-default-transition);
 }
 
 @mixin track {

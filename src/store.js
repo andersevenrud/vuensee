@@ -6,16 +6,10 @@
  */
 import { reactive, readonly } from 'vue'
 import { isSecure } from './utils/dom'
-import { hasScrollbarGutter } from './utils/novnc'
+import { detectSettings, hasScrollbarGutter } from './utils/novnc'
 import config from './config'
 
 let _messageKey = 0
-
-const initialKeys = {
-  ctrl: false,
-  alt: false,
-  windows: false
-}
 
 const defaultVisibility = {
   showLogin: false,
@@ -30,6 +24,12 @@ const defaultConnectionStates = {
   connecting: false,
   disconnecting: false,
   reconnecting: false,
+}
+
+const initialKeys = {
+  ctrl: false,
+  alt: false,
+  windows: false
 }
 
 const initialCapabilities = {
@@ -59,7 +59,7 @@ const initialSettings = {
   ssl: isSecure
 }
 
-const _state = reactive({
+const store = reactive({
   messages: [],
   dragging: false,
   touchKeyboard: false,
@@ -87,131 +87,100 @@ const _state = reactive({
   showSettings: config.features.settings
 })
 
-export const state = readonly(_state)
-
-export const toggleKey = key => (_state.keys[key] = !_state.keys[key])
-
-export const updateSettings = (settings) => {
-  const newSettings = {
-    ..._state.settings,
-    ...settings
-  }
-
-  const scaling = newSettings.scalingMode === 'scale'
-  if (scaling) {
-    newSettings.clipToWindow = false
-  } else if (!hasScrollbarGutter) {
-    newSettings.clipToWindow = true
-  }
-
-  // Auto detect port if no custom port was defined
-  const { port, ssl } = _state.settings
-  const newPort = port === 80 && ssl === true
-    ? 443
-    : (port === 443 && ssl === false ? 80 : undefined)
-
-  if (newPort !== undefined) {
-    newSettings.port = newPort
-  }
-
-  return Object.assign(_state.settings, newSettings)
-}
-
-export const removeMessage = (key) => {
-  const foundIndex = _state.messages.findIndex(message => message.key === key)
-  if (foundIndex !== -1) {
-    _state.messages.splice(foundIndex, 1)
-  }
-}
-
-export const addMessage = (message, type = 'info') => {
-  const key =  _messageKey++
-
-  _state.messages.unshift({
-    key,
-    message,
-    type
+const toggleable = (k, pre = {}) => (v = !store[k]) =>
+  Object.assign(store, {
+    ...pre,
+    [k]: v
   })
 
-  if (_state.settings.messageTimeout > 0) {
-    setTimeout(() => removeMessage(key), _state.settings.messageTimeout)
-  }
-}
-
-export const updateFullscreen = fullscreen => (_state.fullscreen = fullscreen)
-
-export const updateCapabilities = capabilities => Object.assign(_state.capabilities, capabilities)
-
-export const togglePanelOpen = (panelOpen = !_state.panelOpen) => (_state.panelOpen = panelOpen)
-
-export const toggleDragging = (dragging = !_state.dragging) => (_state.dragging = dragging)
-
-export const toggleLogin = (showLogin = !_state.showLogin) => (_state.showLogin = showLogin)
-
-export const toggleSettings = (showSettings = !_state.showSettings) => Object.assign(_state, {
-  ...defaultVisibility,
-  showSettings
-})
-
-export const togglePower = (showPower = !_state.showPower) => Object.assign(_state, {
-  ...defaultVisibility,
-  showPower
-})
-
-export const toggleKeys = (showKeys = !_state.showKeys) => Object.assign(_state, {
-  ...defaultVisibility,
-  showKeys
-})
-
-export const toggleClipboard = (showClipboard = !_state.showClipboard) => Object.assign(_state, {
-  ...defaultVisibility,
-  showClipboard
-})
-
-export const toggleTouchKeyboard = (touchKeyboard = !_state.touchKeyboard) => Object.assign(_state, {
-  touchKeyboard
-})
-
-export const clearClipboard = () => (_state.clipboard = '')
-
-export const updateClipboard = (clipboard) => (_state.clipboard = clipboard)
-
-export const connectionActivate = () => Object.assign(_state, {
+const assignConnection = assign => Object.assign(store, {
   ...defaultConnectionStates,
   ...defaultVisibility,
+  ...assign
+})
+
+export const assignSettings = settings =>
+  Object.assign(store.settings, detectSettings(store.settings, settings))
+
+export const assignCapabilities = capabilities =>
+  Object.assign(store.capabilities, capabilities)
+
+export const toggleKey = key => (store.keys[key] = !store.keys[key])
+
+export const toggleFullscreen = toggleable('fullscreen')
+
+export const togglePanelOpen = toggleable('panelOpen')
+
+export const toggleDragging = toggleable('dragging')
+
+export const toggleLogin = toggleable('showLogin')
+
+export const toggleSettings = toggleable('showSettings', defaultVisibility)
+
+export const togglePower = toggleable('showPower', defaultVisibility)
+
+export const toggleKeys = toggleable('showKeys', defaultVisibility)
+
+export const toggleClipboard = toggleable('showClipboard', defaultVisibility)
+
+export const toggleTouchKeyboard = toggleable('touchKeyboard')
+
+export const clearClipboard = () => (store.clipboard = '')
+
+export const updateClipboard = clipboard => (store.clipboard = clipboard)
+
+export const connectionActivate = () => assignConnection({
   connecting: true
 })
 
-export const connectionDeactivate = () => Object.assign(_state, {
-  ...defaultConnectionStates,
-  ...defaultVisibility,
+export const connectionDeactivate = () => assignConnection({
   showSettings: true,
   disconnecting: true
 })
 
-export const connectionActivated = () => Object.assign(_state, {
-  ...defaultConnectionStates,
-  ...defaultVisibility,
+export const connectionActivated = () => assignConnection({
   connected: true,
   panelOpen: false
 })
 
-export const connectionDeactivated = (reconnecting = false) => Object.assign(_state, {
-  ...defaultConnectionStates,
-  ...defaultVisibility,
-  reconnecting,
-  clipboard: '',
-  touchKeyboard: false,
-  panelOpen: !reconnecting,
-  dragging: false,
-  settings: {
-    ..._state.settings,
-    password: reconnecting ? _state.password : ''
-  },
-  capabilities: {
-    ...initialCapabilities
-  },
-  keys: {
-    ...initialKeys
+export const connectionDeactivated = (reconnecting = false) =>
+  assignConnection({
+    reconnecting,
+    clipboard: '',
+    touchKeyboard: false,
+    dragging: false,
+    panelOpen: !reconnecting,
+    settings: {
+      ...store.settings,
+      password: reconnecting ? store.password : ''
+    },
+    capabilities: {
+      ...initialCapabilities
+    },
+    keys: {
+      ...initialKeys
+    }
+  })
+
+export const removeMessage = (key) => {
+  const foundIndex = store.messages.findIndex(message => message.key === key)
+  if (foundIndex !== -1) {
+    store.messages.splice(foundIndex, 1)
   }
-})
+}
+
+export const addMessage = (message, type = 'info') => {
+  const entry = {
+    key: _messageKey++,
+    message,
+    type
+  }
+
+  if (store.settings.messageTimeout > 0) {
+    setTimeout(() => removeMessage(entry.key), store.settings.messageTimeout)
+  }
+
+  store.messages.unshift(entry)
+}
+
+export const state = readonly(store)

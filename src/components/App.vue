@@ -159,7 +159,7 @@ export default {
     const { t, locale } = useI18n()
     const bell = createBell(config.bell)
     const textarea = ref(null)
-    const onFullscreenChange = () => store.updateFullscreen(!!fullscreen.element())
+    const onFullscreenChange = () => store.toggleFullscreen(!!fullscreen.element())
 
     watch(() => store.state.settings.language, (newLocale) => {
       locale.value = newLocale
@@ -197,7 +197,7 @@ export default {
 
     onUpdateSettings({ key, value }) {
       const oldSettings = { ...this.settings }
-      const newSettings = store.updateSettings({
+      const newSettings = store.assignSettings({
         [key]: value
       })
 
@@ -207,7 +207,7 @@ export default {
         })
       }
 
-      if (['password'].includes(key)) {
+      if (config.localStorageBlacklist.includes(key)) {
         return
       }
 
@@ -233,7 +233,7 @@ export default {
     },
 
     onCapabilities() {
-      store.updateCapabilities({
+      store.assignCapabilities({
         power: _client.hasPowerCapabilities()
       })
     },
@@ -357,7 +357,7 @@ export default {
 
     onKeySend(key) {
       if (key === 'cad') {
-        _client.sendCtrlAlDel()
+        _client.sendCtrlAltDel()
       } else {
         _client.sendKeyCommand(key)
       }
@@ -372,7 +372,7 @@ export default {
     },
 
     onSubmitCredentials(creds) {
-      store.updateSettings(creds)
+      store.assignSettings(creds)
       _client.sendCredentials(creds)
     },
 

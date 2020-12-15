@@ -37,8 +37,15 @@
 
 .checkbox input {
   position: absolute;
-  top: -1000px;
-  left: -1000px;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* NOTE: Moving this negative in any direction causes window scroll on activation */
+  top: 0;
+  left: 0;
 }
 
 .checkbox input:focus + span {
@@ -53,6 +60,8 @@
   border: var(--vuensee-input-border);
   background-color: var(--vuensee-input-background-color);
   position: relative;
+  transition: var(--vuensee-default-transition);
+  z-index: 2;
 }
 
 .overlay > svg {

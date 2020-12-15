@@ -8,8 +8,9 @@ import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 import keysyms from '@novnc/novnc/core/input/keysymdef'
 import { createAudioElement } from './dom'
-
-export { isTouchDevice, hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
+import { hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
+export { isTouchDevice } from '@novnc/novnc/core/util/browser.js';
+export { hasScrollbarGutter }
 
 const events = [
   'disconnect',
@@ -35,13 +36,39 @@ export const keyMappings = {
   alt: [KeyTable.XK_Alt_L, 'AltLeft'],
   windows: [KeyTable.XK_Super_L, 'MetaLeft'],
   backspace: [KeyTable.XK_BackSpace, 'Backspace'],
-  enter: [KeyTable.XK_Enter, 'Enter']
+  enter: [KeyTable.XK_Return, 'Enter']
 }
 
 export const createBell = name => createAudioElement([
   ['audio/ogg', `${name}.oga`],
   ['audio/mpeg', `${name}.mp3`]
 ])
+
+export const detectSettings = (currentSettings, newSettings) => {
+  const settings = {
+    ...currentSettings,
+    ...newSettings
+  }
+
+  const scaling = settings.scalingMode === 'scale'
+  if (scaling) {
+    settings.clipToWindow = false
+  } else if (!hasScrollbarGutter) {
+    settings.clipToWindow = true
+  }
+
+  // Auto detect port if no custom port was defined
+  const { port, ssl } = currentSettings
+  const newPort = port === 80 && ssl === true
+    ? 443
+    : (port === 443 && ssl === false ? 80 : undefined)
+
+  if (newPort !== undefined) {
+    settings.port = newPort
+  }
+
+  return settings
+}
 
 export class VuenseeRFB extends RFB {
   applySettings(settings, {

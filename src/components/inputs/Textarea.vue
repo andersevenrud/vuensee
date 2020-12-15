@@ -23,6 +23,7 @@
   resize: none;
   display: block;
   width: 100%;
+  transition: var(--vuensee-default-transition);
 }
 .textarea textarea:focus {
   outline: var(--vuensee-input-outline);
