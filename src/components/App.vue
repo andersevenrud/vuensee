@@ -273,15 +273,6 @@ export default {
 
       if (e.detail.clean) {
         store.addMessage(this.t('messages.disconnected'))
-
-        if (this.settings.reconnect) {
-          const delay = this.settings.reconnectDelay
-          store.addMessage(this.t('messages.reconnecting', { delay }))
-
-          this.reconnectTimeout = setTimeout(() => {
-            this.onConnectRequest()
-          }, delay)
-        }
       } else {
         if (store.state.connected) {
           store.addMessage(this.t('messages.connectionLost'), 'error')
@@ -290,12 +281,22 @@ export default {
         }
       }
 
-      store.connectionDeactivated(this.settings.reconnect)
+      const reconnect = this.settings.reconnect
+      store.connectionDeactivated(reconnect)
+
+      if (reconnect) {
+        const delay = this.settings.reconnectDelay
+        store.addMessage(this.t('messages.reconnecting', { delay }))
+
+        this.reconnectTimeout = setTimeout(() => {
+          this.onConnectRequest()
+        }, delay)
+      }
     },
 
     onConnectRequest() {
       store.addMessage(this.t('messages.connecting'))
-      store.connectionActivate()
+      store.connectionActivate(store.state.reconnecting)
 
       this.rfb = VuenseeRFB.connect({
         root: this.$refs.view,

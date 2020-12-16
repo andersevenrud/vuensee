@@ -129,8 +129,9 @@ export const clearClipboard = () => (store.clipboard = '')
 
 export const updateClipboard = clipboard => (store.clipboard = clipboard)
 
-export const connectionActivate = () => assignConnection({
-  connecting: true
+export const connectionActivate = (reconnecting = false) => assignConnection({
+  connecting: true,
+  reconnecting
 })
 
 export const connectionDeactivate = () => assignConnection({
