@@ -16,8 +16,15 @@ export const camelToSnake = str => str
 /**
  * Checks if value of any type is true(-ish)
  */
-export const isBoolean = str => ['1', 'on', 'true']
+export const isTrue = str => ['1', 'on', 'true']
   .includes(String(str).toLowerCase())
+
+/**
+ * Comma separated string to array
+ */
+export const csvToArray = str => str
+  .split(',')
+  .map(s => s.trim())
 
 /**
  * Returns the different entries from two objects

@@ -5,18 +5,23 @@
  * @license MIT
  */
 
-import { camelToSnake, isBoolean } from './primitives'
+import { camelToSnake, csvToArray, isTrue } from './primitives'
 
 const env = { ...import.meta.env }
 
-const params = Object.fromEntries(
-  new URLSearchParams(window.location.search.substring(1))
-)
+const params = Object.fromEntries(new URLSearchParams(
+  window.location.search.substring(1)
+))
+
+/**
+ * Any from ENV
+ */
+export const fromEnv = k => env[`VITE_${camelToSnake(k)}`]
 
 /**
  * Feature from ENV
  */
-export const fromFeatureEnv = k => env[`VITE_ENABLE_${k.toUpperCase()}`]
+export const fromFeatureEnv = k => env[`VITE_ENABLE_${camelToSnake(k)}`]
 
 /**
  * Settings from ENV
@@ -29,63 +34,65 @@ export const fromSettingsEnv = k => env[`VITE_SETTINGS_${camelToSnake(k)}`]
 export const hasUrlParameter = k => params[k] !== undefined
 
 /**
- * Call given function or return a default value
+ * Call given parse function or return a default value
  */
-export const valueCheck = (v, defaultV, fn) => typeof v === 'string'
-  ? fn(v)
-  : defaultV
+export const parseOrDefault = (fn, defaultV = undefined) => v =>
+  typeof v === 'string' ? fn(v) : defaultV
 
 /**
  * Check if the feature is enabled
  */
-export const featureCheck = v => valueCheck(v, true, isBoolean)
+export const featureCheck = parseOrDefault(isTrue, true)
 
 /**
- * Prases a boolean if the value is the correct type
+ * Returns a parsed or emapty array from comma separated string
  */
-export const parseBoolean = v =>
-  valueCheck(v, undefined, () => isBoolean)
+export const parseArray = parseOrDefault(csvToArray, [])
 
 /**
- * Parses a number if the value is the correct type
+ * Returns a parsed boolean if not undefined
  */
-export const parseNumber = v =>
-  valueCheck(v, undefined, () => parseInt(v, 10))
+export const parseBoolean = parseOrDefault(isTrue)
 
 /**
- * Parses a string if value is the correct type
+ * Returns a parsed number if not undefined
  */
-export const parseString = v =>
-  valueCheck(v, undefined, () => v.trim())
+export const parseNumber = parseOrDefault(v => parseInt(v, 10))
+
+/**
+ * Returns a parsed string if not undefined
+ */
+export const parseString = parseOrDefault(v => v.trim())
+
+/**
+ * Creates a new object without undefined values
+ */
+const readWrapper = cb => dict => Object.fromEntries(
+  dict
+    .map(cb)
+    .filter(([, v]) => v !== undefined)
+)
 
 /**
  * Reads all settings with given map from ENV
  */
-export const readSettings = settingsMap =>
-  Object.fromEntries(
-    settingsMap
-      .map(([k, fn]) => [k, fn(fromSettingsEnv(k))])
-      .filter(([, v]) => v !== undefined)
-  )
-
-/**
- * Reads all features with given map from ENV
- */
-export const readFeatures = featureMap =>
-  Object.fromEntries(
-    featureMap
-      .map(k => [k, featureCheck(fromFeatureEnv(k))])
-  )
+export const readSettings = readWrapper(
+  ([k, fn]) => [k, fn(fromSettingsEnv(k))]
+)
 
 /**
  * Reads all settings with given map from URL
  */
-export const readUrlSettings = settingsMap =>
-  Object.fromEntries(
-    settingsMap
-      .map(([k, fn]) => [k, fn(params[k])])
-      .filter(([, v]) => v !== undefined)
-  )
+export const readUrlSettings = readWrapper(
+  ([k, fn]) => [k, fn(params[k])]
+)
+
+/**
+ * Reads all features with given map from ENV
+ */
+export const readFeatures = readWrapper(
+  k => [k, featureCheck(fromFeatureEnv(k))]
+)
 
 /**
  * Returns an array of languages supported by the browser

@@ -12,8 +12,7 @@ import {
   parseBoolean,
   parseNumber,
   parseString,
-  featureCheck,
-  fromFeatureEnv,
+  fromEnv,
   localStorageSettings,
   readNavigatorLanguages,
   hasUrlParameter
@@ -68,39 +67,42 @@ const languageMap = {
 }
 
 /**
+ * A set of setting keys that will not be stored in
+ * the browser
+ */
+const localStorageBlacklist = [
+  'password'
+]
+
+/*
  * Loads the configuration
  */
-const loadConfig = () => {
-  const languages = readNavigatorLanguages(languageMap)
+const languages = readNavigatorLanguages(languageMap)
 
-  const features = readFeatures(featureMap)
+const features = readFeatures(featureMap)
 
-  const dotenvSettings = readSettings(settingsMap)
+const dotenvSettings = readSettings(settingsMap)
 
-  const localSettings = hasUrlParameter('_clear')
-    ? localStorageSettings.clear()
-    : localStorageSettings.load()
+const localSettings = hasUrlParameter('_clear')
+  ? localStorageSettings.clear()
+  : localStorageSettings.load()
 
-  const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
-    ? readUrlSettings(settingsMap)
-    : {}
+const urlSettings = features.urlSettings
+  ? readUrlSettings(settingsMap)
+  : {}
 
-  return {
-    features,
-    settings: {
-      language: languages[0],
-      ...dotenvSettings,
-      ...localSettings,
-      ...urlSettings
-    }
-  }
-}
-
+/*
+ * Export
+ */
 export default {
-  title: import.meta.env.VITE_TITLE || 'vuensee',
+  title: fromEnv('title') || 'vuensee',
   bell: 'sounds/bell',
-  localStorageBlacklist: [
-    'password'
-  ],
-  ...loadConfig()
+  localStorageBlacklist,
+  features,
+  settings: {
+    language: languages[0],
+    ...dotenvSettings,
+    ...localSettings,
+    ...urlSettings
+  }
 }
