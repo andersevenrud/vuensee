@@ -25,6 +25,7 @@
 <style module>
 .clipboard {
   padding: var(--vuensee-margin-half);
+  box-sizing: border-box;
 }
 
 .clipboard footer {
