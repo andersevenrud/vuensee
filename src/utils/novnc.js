@@ -8,9 +8,7 @@ import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 import keysyms from '@novnc/novnc/core/input/keysymdef'
 import { createAudioElement } from './dom'
-import { hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
-export { isTouchDevice } from '@novnc/novnc/core/util/browser.js';
-export { hasScrollbarGutter }
+import { hasScrollbarGutter, isTouchDevice } from '@novnc/novnc/core/util/browser'
 
 /**
  * A set of all events we want to subscribe to
@@ -186,3 +184,5 @@ export class VuenseeRFB extends RFB {
     return rfb
   }
 }
+
+export { hasScrollbarGutter, isTouchDevice }

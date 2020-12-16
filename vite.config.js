@@ -9,7 +9,7 @@ const config = {
     include: [
       '@novnc/novnc/core/input/keysym',
       '@novnc/novnc/core/input/keysymdef',
-      '@novnc/novnc/core/util/browser.js'
+      '@novnc/novnc/core/util/browser'
     ]
   }
 }
