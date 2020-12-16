@@ -8,6 +8,7 @@
 import { createI18n } from 'vue-i18n'
 import en from './translations/en'
 import no from './translations/no'
+import es from './translations/es'
 import config from '../config'
 
 const i18n = createI18n({
@@ -16,7 +17,8 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     en,
-    no
+    no,
+    es
   }
 })
 
