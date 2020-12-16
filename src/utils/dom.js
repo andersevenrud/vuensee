@@ -5,8 +5,14 @@
  * @license MIT
  */
 
+/**
+ * If we're on a secure connection
+ */
 export const isSecure = window.location.protocol === 'https:'
 
+/**
+ * A fullscreen toggler and detection wrapper
+ */
 export const fullscreen = {
   request: () => (document.documentElement.requestFullscreen ||
     document.documentElement.mozRequestFullscreen ||
@@ -24,6 +30,10 @@ export const fullscreen = {
     document.msFullscreenElement
 }
 
+/**
+ * A function to get a value from input field
+ * with the correct value type
+ */
 export const getTargetInputValue = (ev) => {
   if (ev.target.type === 'checkbox') {
     return ev.target.checked
@@ -34,6 +44,10 @@ export const getTargetInputValue = (ev) => {
   return ev.target.value
 }
 
+/**
+ * Creates a HTML audio element with a preset
+ * of audio sources
+ */
 export const createAudioElement = (sources) => {
   const audio = new Audio()
 
@@ -47,6 +61,10 @@ export const createAudioElement = (sources) => {
   return audio
 }
 
+/**
+ * Listen and forward keyboard input
+ * from an input field.
+ */
 export const inputKeyListener = (send) => {
   const sendkeys = {
     8: 'backspace',
@@ -82,6 +100,7 @@ export const inputKeyListener = (send) => {
         return
       }
 
+      // NOTE: Array.from can handle unicore, emojis etc.
       const chars = Array.from(ev.target.value)
       chars.forEach(send)
       ev.target.value = ''

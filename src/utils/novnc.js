@@ -12,6 +12,10 @@ import { hasScrollbarGutter } from '@novnc/novnc/core/util/browser.js';
 export { isTouchDevice } from '@novnc/novnc/core/util/browser.js';
 export { hasScrollbarGutter }
 
+/**
+ * A set of all events we want to subscribe to
+ * on a RFB instance
+ */
 const events = [
   'disconnect',
   'connect',
@@ -23,12 +27,18 @@ const events = [
   'clipboard'
 ]
 
+/**
+ * The list of available scaling modes
+ */
 export const scalingModes = [
   'off',
   'scale',
   'remote'
 ]
 
+/**
+ * A map of key names to keysyms
+ */
 export const keyMappings = {
   esc: [KeyTable.XK_Escape, 'Escape'],
   tab: [KeyTable.XK_Tab, 'Tab'],
@@ -39,11 +49,19 @@ export const keyMappings = {
   enter: [KeyTable.XK_Return, 'Enter']
 }
 
+/**
+ * Creates the system bell audio source
+ */
 export const createBell = name => createAudioElement([
   ['audio/ogg', `${name}.oga`],
   ['audio/mpeg', `${name}.mp3`]
 ])
 
+/**
+ * Creates a new set of settings from old and
+ * makes sure that certain properties are mutated
+ * based on certain properties
+ */
 export const detectSettings = (currentSettings, newSettings) => {
   const settings = {
     ...currentSettings,
@@ -70,15 +88,22 @@ export const detectSettings = (currentSettings, newSettings) => {
   return settings
 }
 
+/**
+ * Extensions to the noVNC RFB Implementation
+ */
 export class VuenseeRFB extends RFB {
+
+  /**
+   * Applies settings directly onto a running instance
+   */
   applySettings(settings, {
     dragging = false
   } = {}) {
     this.clipViewport = settings.clipToWindow
     this.scaleViewport = settings.scalingMode === 'scale'
     this.resizeSession = settings.scalingMode === 'remote'
-    this.qualityLevel = parseInt(settings.quality, 10)
-    this.compressionLevel = parseInt(settings.compression, 10)
+    this.qualityLevel = parseInt(settings.quality, 10) // FIXME: The parseInt can probably go now
+    this.compressionLevel = parseInt(settings.compression, 10) // FIXME: The parseInt can probably go now
     this.showDotCursor = settings.dotCursor
     this.viewOnly = settings = settings.viewOnly
     this.dragViewport = !this.clipViewport && this.dragViewport
@@ -86,10 +111,17 @@ export class VuenseeRFB extends RFB {
       : dragging
   }
 
+  /**
+   * Check if we can use power capabilities
+   */
   hasPowerCapabilities() {
     return this.capabilities.power && !this.viewOnly
   }
 
+  /**
+   * Sends the given key as a raw input or from the
+   * lookup table
+   */
   sendKeyCommand(name, value = true) {
     if (keyMappings[name]) {
       const [keysym, code] = keyMappings[name]
@@ -100,6 +132,9 @@ export class VuenseeRFB extends RFB {
     }
   }
 
+  /**
+   * Wrapper to create a new RFB instance
+   */
   static connect({
     root,
     bindings,

@@ -13,26 +13,54 @@ const params = Object.fromEntries(
   new URLSearchParams(window.location.search.substring(1))
 )
 
+/**
+ * Feature from ENV
+ */
 export const fromFeatureEnv = k => env[`VITE_ENABLE_${k.toUpperCase()}`]
+
+/**
+ * Settings from ENV
+ */
 export const fromSettingsEnv = k => env[`VITE_SETTINGS_${camelToSnake(k)}`]
 
+/**
+ * Checks givel URL parameter for existence
+ */
 export const hasUrlParameter = k => params[k] !== undefined
 
+/**
+ * Call given function or return a default value
+ */
 export const valueCheck = (v, defaultV, fn) => typeof v === 'string'
   ? fn(v)
   : defaultV
 
+/**
+ * Check if the feature is enabled
+ */
 export const featureCheck = v => valueCheck(v, true, isBoolean)
 
+/**
+ * Prases a boolean if the value is the correct type
+ */
 export const parseBoolean = v =>
   valueCheck(v, undefined, () => isBoolean)
 
+/**
+ * Parses a number if the value is the correct type
+ */
 export const parseNumber = v =>
   valueCheck(v, undefined, () => parseInt(v, 10))
 
+/**
+ * Parses a string if value is the correct type
+ */
 export const parseString = v =>
   valueCheck(v, undefined, () => v.trim())
 
+/**
+ * Reads all settings with given map from ENV
+ */
 export const readSettings = settingsMap =>
   Object.fromEntries(
     settingsMap
@@ -40,12 +68,18 @@ export const readSettings = settingsMap =>
       .filter(([, v]) => v !== undefined)
   )
 
+/**
+ * Reads all features with given map from ENV
+ */
 export const readFeatures = featureMap =>
   Object.fromEntries(
     featureMap
       .map(k => [k, featureCheck(fromFeatureEnv(k))])
   )
 
+/**
+ * Reads all settings with given map from URL
+ */
 export const readUrlSettings = settingsMap =>
   Object.fromEntries(
     settingsMap
@@ -53,6 +87,18 @@ export const readUrlSettings = settingsMap =>
       .filter(([, v]) => v !== undefined)
   )
 
+/**
+ * Returns an array of languages supported by the browser
+ * in a short form. Ex: en_EN -> en
+ */
+export const readNavigatorLanguages = languageMap =>
+  (navigator.languages || [])
+    .map(name => name.split(/-|_/)[0])
+    .map(name => languageMap[name] || name)
+
+/**
+ * Wrapper for handling localStorage settings
+ */
 export const localStorageSettings = (() => {
   const context = 'vuensee-settings'
   const enabled = window.localStorage !== undefined &&

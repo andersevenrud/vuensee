@@ -15,9 +15,13 @@ import {
   featureCheck,
   fromFeatureEnv,
   localStorageSettings,
+  readNavigatorLanguages,
   hasUrlParameter
 } from './utils/config'
 
+/**
+ * List of available settings and their type parser
+ */
 const settingsMap = [
   ['language', parseString],
   ['messageTimeout', parseNumber],
@@ -39,6 +43,9 @@ const settingsMap = [
   ['ssl', parseBoolean]
 ]
 
+/**
+ * List of available features
+ */
 const featureMap = [
   'localstorageSettings',
   'urlSettings',
@@ -52,37 +59,48 @@ const featureMap = [
   'panel'
 ]
 
+/**
+ * A map to make sure variants of a certain language
+ * points to the same translations
+ */
 const languageMap = {
   nb: 'no'
 }
 
-const features = readFeatures(featureMap)
+/**
+ * Loads the configuration
+ */
+const loadConfig = () => {
+  const languages = readNavigatorLanguages(languageMap)
 
-const dotenvSettings = readSettings(settingsMap)
+  const features = readFeatures(featureMap)
 
-const localSettings = hasUrlParameter('_clear')
-  ? localStorageSettings.clear()
-  : localStorageSettings.load()
+  const dotenvSettings = readSettings(settingsMap)
 
-const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
-  ? readUrlSettings(settingsMap)
-  : {}
+  const localSettings = hasUrlParameter('_clear')
+    ? localStorageSettings.clear()
+    : localStorageSettings.load()
 
-const languages = (navigator.languages || [])
-  .map(name => name.split(/-|_/)[0])
-  .map(name => languageMap[name] || name)
+  const urlSettings = featureCheck(fromFeatureEnv('urlSettings'))
+    ? readUrlSettings(settingsMap)
+    : {}
+
+  return {
+    features,
+    settings: {
+      language: languages[0],
+      ...dotenvSettings,
+      ...localSettings,
+      ...urlSettings
+    }
+  }
+}
 
 export default {
   title: import.meta.env.VITE_TITLE || 'vuensee',
   bell: 'sounds/bell',
-  features,
   localStorageBlacklist: [
     'password'
   ],
-  settings: {
-    language: languages[0],
-    ...dotenvSettings,
-    ...localSettings,
-    ...urlSettings
-  }
+  ...loadConfig()
 }

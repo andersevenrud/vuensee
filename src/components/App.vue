@@ -250,7 +250,7 @@ export default {
 
     onClipboardClear() {
       this.rfb.clipboardPasteFrom('')
-      store.clearClipboard()
+      store.updateClipboard('')
     },
 
     onClipboardUpdate(text) {
