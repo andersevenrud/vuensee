@@ -1,5 +1,17 @@
 # Changelog
 
+## 2020-12-16 - 0.9.7
+
+* Added cancel (and esc key trigger) in Login modal
+* Added message popup on credentials required
+* Updated default message timeout
+* Fixed padding for cliboard panel box
+* Prevent controls toggle from hiding login modal
+* Show settings on clean disconnects
+* Added submit (enter) from settings panel
+* Various cleanups and improvements
+* Documentation updates
+
 ## 2020-12-16 - 0.9.6
 
 * Improved reconnection mechanics (#5)
