@@ -66,6 +66,7 @@
           :disabled="connected || connecting"
           :settings="settings"
           @update="onUpdateSettings"
+          @submit="onConnectRequest"
         />
       </template>
     </Panel>

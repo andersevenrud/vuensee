@@ -11,7 +11,7 @@
   >
     <form
       :class="$style.form"
-      @submit.prevent
+      @submit.prevent="$emit('submit')"
     >
       <SettingsGroup :label="t('settings.session.header')">
         <Checkbox
@@ -134,6 +134,12 @@
           @input="onChange('reconnectDelay', $event)"
         />
       </SettingsGroup>
+
+      <input
+        type="submit"
+        value="Connect"
+        :class="$style.hiddenSubmit"
+      />
     </form>
   </div>
 </template>
@@ -144,6 +150,10 @@
   user-select: none;
   box-sizing: border-box;
   padding: 1px 0;
+}
+
+.hiddenSubmit {
+  display: none;
 }
 </style>
 
@@ -172,7 +182,8 @@ export default {
   },
 
   emits: [
-    'update'
+    'update',
+    'submit'
   ],
 
   setup(props, { emit }) {
