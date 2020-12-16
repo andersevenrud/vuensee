@@ -84,6 +84,7 @@ export default {
     reconnecting: 'Reconnecting in {delay}ms...',
     connectionLost: 'Connection was lost',
     connectionFailure: 'Could not establish connection',
-    securityFailure: 'Security handshake failure ({status}): {reason}'
+    securityFailure: 'Security handshake failure ({status}): {reason}',
+    credentialsRequired: 'Authentication required to connect'
   }
 }

@@ -260,6 +260,7 @@ export default {
     },
 
     onCredentialsRequired() {
+      store.addMessage(this.t('messages.credentialsRequired'))
       store.toggleLogin(true)
     },
 

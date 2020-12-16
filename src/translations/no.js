@@ -84,6 +84,7 @@ export default {
     reconnecting: 'Gjenkobler om {delay}ms...',
     connectionLost: 'Kobling ble brutt',
     connectionFailure: 'Kunne ikke opprette kobling',
-    securityFailure: 'Sikkerhets håndtrykk feilet ({status}): {reason}'
+    securityFailure: 'Sikkerhets håndtrykk feilet ({status}): {reason}',
+    credentialsRequired: 'Autentisering påkrevd for tilkobling'
   }
 }
