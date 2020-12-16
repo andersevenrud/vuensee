@@ -12,7 +12,6 @@ import config from './config'
 let _messageKey = 0
 
 const defaultVisibility = {
-  showLogin: false,
   showSettings: false,
   showPower: false,
   showKeys: false,
@@ -65,6 +64,7 @@ const store = reactive({
   touchKeyboard: false,
   fullscreen: false,
   panelOpen: true,
+  loginOpen: false,
   clipboard: '',
 
   ...defaultConnectionStates,
@@ -100,6 +100,7 @@ const toggleable = (k, pre = {}) => (v = !store[k]) =>
  * Resets states related to connectivity before assigning new ones
  */
 const assignConnection = assign => Object.assign(store, {
+  loginOpen: false,
   ...defaultConnectionStates,
   ...defaultVisibility,
   ...assign
@@ -141,7 +142,7 @@ export const toggleDragging = toggleable('dragging')
 /**
  * Toggles visibility of login modal
  */
-export const toggleLogin = toggleable('showLogin')
+export const toggleLogin = toggleable('loginOpen')
 
 /**
  * Toggles settings visibility in panel

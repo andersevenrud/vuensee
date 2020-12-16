@@ -82,7 +82,7 @@
     />
 
     <Login
-      v-if="showLogin"
+      v-if="loginOpen"
       @submit="onSubmitCredentials"
     />
 
