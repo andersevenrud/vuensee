@@ -118,7 +118,7 @@
 </style>
 
 <script>
-import { onBeforeMount, onBeforeUnmount, ref, watch } from 'vue'
+import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { fullscreen } from '../utils/dom'
 import { VuenseeRFB, createBell } from '../utils/novnc'
@@ -137,9 +137,6 @@ import Messages from './layout/Messages.vue'
 import Logo from './layout/Logo.vue'
 import TouchKeyboard from './layout/TouchKeyboard.vue'
 
-let _client = {}
-let _reconnectTimeout // TODO: Implement proper reconnect mechanic
-
 export default {
   name: 'App',
 
@@ -157,20 +154,28 @@ export default {
   },
 
   setup() {
-    const { t, locale } = useI18n()
-    const bell = createBell(config.bell)
+    const { t } = useI18n()
+    const rfb = ref({})
+    const reconnectTimeout = ref(null)
     const textarea = ref(null)
-    const onFullscreenChange = () => store.toggleFullscreen(!!fullscreen.element())
-
-    watch(() => store.state.settings.language, (newLocale) => {
-      locale.value = newLocale
+    const windowTitle = computed({
+      set: title => (document.title = title ? `${title} - ${config.title}` : config.title)
     })
 
-    onBeforeMount(() => (document.title = config.title))
-    onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
-    onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
+    const bell = createBell(config.bell)
+    const onFullscreenChange = () => store.toggleFullscreen(!!fullscreen.element())
 
-    return { config, bell, t, textarea }
+    onBeforeMount(() => (windowTitle.value = ''))
+    onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
+    onBeforeUnmount(() => clearTimeout(reconnectTimeout.value))
+    onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
+    onBeforeUnmount(() => {
+      if (rfb.value.disconnect) {
+        rfb.value.disconnect()
+      }
+    })
+
+    return { config, bell, t, textarea, rfb, reconnectTimeout, windowTitle }
   },
 
   data() {
@@ -191,7 +196,7 @@ export default {
     onDragToggle() {
       store.toggleDragging()
 
-      _client.applySettings(this.settings, {
+      this.rfb.applySettings(this.settings, {
         dragging: this.dragging
       })
     },
@@ -203,7 +208,7 @@ export default {
       })
 
       if (this.connected) {
-        _client.applySettings(this.settings, {
+        this.rfb.applySettings(this.settings, {
           dragging: this.dragging
         })
       }
@@ -230,12 +235,12 @@ export default {
     },
 
     onDesktopName(ev) {
-      document.title = `${ev.detail.name} - ${config.title}`
+      this.windowTitle = ev.detail.name
     },
 
     onCapabilities() {
       store.assignCapabilities({
-        power: _client.hasPowerCapabilities()
+        power: this.rfb.hasPowerCapabilities()
       })
     },
 
@@ -244,12 +249,12 @@ export default {
     },
 
     onClipboardClear() {
-      _client.clipboardPasteFrom('')
+      this.rfb.clipboardPasteFrom('')
       store.clearClipboard()
     },
 
     onClipboardUpdate(text) {
-      _client.clipboardPasteFrom(text)
+      this.rfb.clipboardPasteFrom(text)
       store.updateClipboard(text)
     },
 
@@ -260,11 +265,11 @@ export default {
     onConnected() {
       store.addMessage(this.t('messages.connected'))
       store.connectionActivated()
-      _client.focus()
+      this.rfb.focus()
     },
 
     onDisconnected(e) {
-      document.title = config.title
+      this.windowTitle = ''
 
       if (e.detail.clean) {
         store.addMessage(this.t('messages.disconnected'))
@@ -273,8 +278,8 @@ export default {
           const delay = this.settings.reconnectDelay
           store.addMessage(this.t('messages.reconnecting', { delay }))
 
-          _reconnectTimeout = setTimeout(() => {
-            this.onnConnectRequest()
+          this.reconnectTimeout = setTimeout(() => {
+            this.onConnectRequest()
           }, delay)
         }
       } else {
@@ -292,7 +297,7 @@ export default {
       store.addMessage(this.t('messages.connecting'))
       store.connectionActivate()
 
-      _client = VuenseeRFB.connect({
+      this.rfb = VuenseeRFB.connect({
         root: this.$refs.view,
         options: this.settings,
         bindings: {
@@ -309,9 +314,9 @@ export default {
     },
 
     onDisconnectRequest() {
-      clearTimeout(_reconnectTimeout)
+      clearTimeout(this.reconnectTimeout)
       store.connectionDeactivate()
-      _client.disconnect()
+      this.rfb.disconnect()
     },
 
     onMaximize() {
@@ -339,42 +344,42 @@ export default {
     },
 
     onPowerShutdown() {
-      _client.machineShutdown()
+      this.rfb.machineShutdown()
     },
 
     onPowerReboot() {
-      _client.machineReboot()
+      this.rfb.machineReboot()
     },
 
     onPowerReset() {
-      _client.machineReset()
+      this.rfb.machineReset()
     },
 
     onKeyToggle(key) {
       const toggle = store.toggleKey(key)
-      _client.sendKeyCommand(key, toggle)
-      _client.focus()
+      this.rfb.sendKeyCommand(key, toggle)
+      this.rfb.focus()
     },
 
     onKeySend(key) {
       if (key === 'cad') {
-        _client.sendCtrlAltDel()
+        this.rfb.sendCtrlAltDel()
       } else {
-        _client.sendKeyCommand(key)
+        this.rfb.sendKeyCommand(key)
       }
 
-      _client.focus()
+      this.rfb.focus()
     },
 
     onMouseOut() {
       if (this.connected) {
-        _client.focus()
+        this.rfb.focus()
       }
     },
 
     onSubmitCredentials(creds) {
       store.assignSettings(creds)
-      _client.sendCredentials(creds)
+      this.rfb.sendCredentials(creds)
     },
 
     onMessageClick(ev, { key }) {
@@ -382,11 +387,11 @@ export default {
     },
 
     onTouchKeyboardFocus() {
-      _client.focusOnClick = true
+      this.rfb.focusOnClick = true
     },
 
     onTouchKeyboardBlur() {
-      _client.focusOnClick = false
+      this.rfb.focusOnClick = false
     },
 
     onTouchKeyboardHide() {
@@ -394,7 +399,7 @@ export default {
     },
 
     onTouchKeyboardInput(key) {
-      _client.sendKeyCommand(key, undefined)
+      this.rfb.sendKeyCommand(key, undefined)
     },
 
     onTogglePanel() {
