@@ -10,6 +10,13 @@
 </template>
 
 <script>
+const pointsMap = {
+  down: '6 9 12 15 18 9',
+  up: '18 15 12 9 6 15',
+  right: '9 18 15 12 9 6',
+  left: '15 18 9 12 15 6'
+}
+
 export default {
   name: 'ChevronIcon',
   props: {
@@ -18,11 +25,9 @@ export default {
       default: 'right'
     }
   },
-  computed: {
-    points() {
-      return this.dir === 'right'
-        ? '9 18 15 12 9 6'
-        : '15 18 9 12 15 6'
+  setup(props) {
+    return {
+      points: pointsMap[props.dir]
     }
   }
 }
