@@ -49,7 +49,7 @@ const initialSettings = {
   compression: 2,
   reconnect: false,
   reconnectDelay: 5000,
-  messageTimeout: 3000,
+  messageTimeout: 4000,
   dotCursor: false,
   hostname: window.location.hostname,
   path: 'websockify',
