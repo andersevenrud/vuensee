@@ -281,7 +281,7 @@ export default {
         }
       }
 
-      const reconnect = this.settings.reconnect
+      const reconnect = this.connected || this.connecting ? this.settings.reconnect : false
       store.connectionDeactivated(reconnect)
 
       if (reconnect) {
