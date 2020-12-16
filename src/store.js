@@ -208,6 +208,7 @@ export const connectionDeactivated = (reconnecting = false) =>
     touchKeyboard: false,
     dragging: false,
     panelOpen: !reconnecting,
+    showSettings: !reconnecting,
     settings: {
       ...store.settings,
       password: reconnecting ? store.password : ''
