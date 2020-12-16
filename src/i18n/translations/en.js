@@ -74,7 +74,8 @@ export default {
 
   login: {
     passwordPlaceholder: 'Enter account password',
-    submit: 'Submit'
+    submit: 'Submit',
+    cancel: 'Cancel'
   },
 
   messages: {

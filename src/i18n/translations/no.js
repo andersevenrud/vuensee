@@ -74,7 +74,8 @@ export default {
 
   login: {
     passwordPlaceholder: 'Tast inn kontopassord',
-    submit: 'Send'
+    submit: 'Send',
+    cancel: 'Avbryt'
   },
 
   messages: {

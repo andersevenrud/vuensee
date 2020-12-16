@@ -84,6 +84,7 @@
     <Login
       v-if="loginOpen"
       @submit="onSubmitCredentials"
+      @cancel="onDisconnectRequest"
     />
 
     <Messages
@@ -317,6 +318,7 @@ export default {
     },
 
     onDisconnectRequest() {
+    console.warn('xxx')
       clearTimeout(this.reconnectTimeout)
       store.connectionDeactivate()
       this.rfb.disconnect()
