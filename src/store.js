@@ -5,11 +5,10 @@
  * @license MIT
  */
 import { reactive, readonly } from 'vue'
-import { isSecure } from './utils/dom'
 import { detectSettings, hasScrollbarGutter } from './utils/novnc'
 import config from './config'
 
-let _messageKey = 0
+export const isSecure = window.location.protocol === 'https:'
 
 const defaultVisibility = {
   showSettings: false,
@@ -234,19 +233,23 @@ export const removeMessage = (key) => {
 /**
  * Adds a message with given type
  */
-export const addMessage = (message, type = 'info') => {
-  const entry = {
-    key: _messageKey++,
-    message,
-    type
-  }
+export const addMessage = (() => {
+  let key = 0
 
-  if (store.settings.messageTimeout > 0) {
-    setTimeout(() => removeMessage(entry.key), store.settings.messageTimeout)
-  }
+  return (message, type = 'info') => {
+    const entry = {
+      key: key++,
+      message,
+      type
+    }
 
-  store.messages.unshift(entry)
-}
+    if (store.settings.messageTimeout > 0) {
+      setTimeout(() => removeMessage(entry.key), store.settings.messageTimeout)
+    }
+
+    store.messages.unshift(entry)
+  }
+})()
 
 /**
  * Store for use in componenets

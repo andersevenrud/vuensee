@@ -6,11 +6,6 @@
  */
 
 /**
- * If we're on a secure connection
- */
-export const isSecure = window.location.protocol === 'https:'
-
-/**
  * A fullscreen toggler and detection wrapper
  */
 export const fullscreen = {
