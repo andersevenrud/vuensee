@@ -1,6 +1,6 @@
 # Changelog
 
-## 2020-12-16 - 0.9.5
+## 2020-12-16 - 0.9.6
 
 * Improved reconnection mechanics (#5)
 * Improved some noVNC instance handling
