@@ -318,7 +318,6 @@ export default {
     },
 
     onDisconnectRequest() {
-    console.warn('xxx')
       clearTimeout(this.reconnectTimeout)
       store.connectionDeactivate()
       this.rfb.disconnect()

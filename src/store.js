@@ -8,7 +8,7 @@ import { reactive, readonly } from 'vue'
 import { detectSettings, hasScrollbarGutter } from './utils/novnc'
 import config from './config'
 
-export const isSecure = window.location.protocol === 'https:'
+const isSecure = window.location.protocol === 'https:'
 
 const defaultVisibility = {
   showSettings: false,
