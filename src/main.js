@@ -6,7 +6,7 @@
  */
 
 import { createApp } from 'vue'
-import { createI18n } from 'vue-i18n'
+import i18n from './i18n'
 import App from './components/App.vue'
 import Input from './components/inputs/Input.vue'
 import Textarea from './components/inputs/Textarea.vue'
@@ -27,21 +27,8 @@ import DragIcon from './components/icons/DragIcon.vue'
 import TouchKeyboardIcon from './components/icons/TouchKeyboardIcon.vue'
 import ChevronIcon from './components/icons/ChevronIcon.vue'
 import CheckIcon from './components/icons/CheckIcon.vue'
-import en from './translations/en'
-import no from './translations/no'
-import config from './config'
 import './assets/index.css'
 import './assets/theme.css'
-
-const i18n = createI18n({
-  legacy: false,
-  locale: config.settings.language || 'en',
-  fallbackLocale: 'en',
-  messages: {
-    en,
-    no
-  }
-})
 
 const app = createApp(App)
 app.use(i18n)
