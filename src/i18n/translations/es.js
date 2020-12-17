@@ -8,7 +8,7 @@
 export default {
   controls: {
     panel: 'Activar/Desactivar visibilidad',
-    settings: 'Activar/Desactivar configuracion',
+    settings: 'Activar/Desactivar configuración',
     keys: 'Activar/Desactivar teclas',
     clipboard: 'Activar/Desactivar portapapeles',
     fullscreen: 'Activar/Desactivar pantalla completa',
@@ -54,7 +54,7 @@ export default {
       clipToWindow: 'Sujetar a la ventana'
     },
     visuals: {
-      header: 'Propiedades visuales',
+      header: 'Vista',
       scalingMode: 'Modo de escala',
       quality: 'Calidad',
       compression: 'Nivel de compresión'
