@@ -109,7 +109,7 @@ The order of settings is as follows (from lowest to highest priority):
 | `VITE_ENABLE_URL_SETTINGS`          |                  | Boolean  | `true`       |                          |
 | `VITE_ENABLE_LOCALSTORAGE_SETTINGS` |                  | Boolean  | `true`       |                          |
 | `VITE_ENABLE_VIEWPORT_DRAGGING`     |                  | Boolean  | `true`       |                          |
-| `VITE_SETTINGS_LANGUAGE`            | `language`       | String   | Auto         | `en`, `no`               |
+| `VITE_SETTINGS_LANGUAGE`            | `language`       | String   | Auto         | `en`, `no`, `es`         |
 | `VITE_SETTINGS_AUTOCONNECT`         | `autoconnect`    | Boolean  | `false`      |                          |
 | `VITE_SETTINGS_BELL`                | `bell`           | Boolean  | `true`       |                          |
 | `VITE_SETTINGS_SHARED_MODE`         | `sharedMode`     | Boolean  | `true`       |                          |

@@ -21,7 +21,7 @@ if (process.env.DOCKER_DEV_PORT) {
     port,
     hmr: {
       port: port
-    },
+    }
   })
 }
 
