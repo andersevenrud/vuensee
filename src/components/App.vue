@@ -121,12 +121,13 @@
 </style>
 
 <script>
-import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { fullscreen } from '../utils/dom'
-import { VuenseeRFB, createBell } from '../utils/novnc'
 import { localStorageSettings } from '../utils/config'
 import { diffObject } from '../utils/primitives'
+import { useWindowTitle } from '../composables/windowTitle'
+import { useFullscreen } from '../composables/fullscreen'
+import { useRFB } from '../composables/rfb'
 import * as store from '../store'
 import config from '../config'
 import Panel from './layout/Panel.vue'
@@ -157,28 +158,30 @@ export default {
   },
 
   setup() {
+    const view = ref(null)
     const { t } = useI18n()
-    const rfb = ref({})
-    const reconnectTimeout = ref(null)
-    const textarea = ref(null)
-    const windowTitle = computed({
-      set: title => (document.title = title ? `${title} - ${config.title}` : config.title)
+    const { windowTitle } = useWindowTitle(config.title)
+    const { rfb, bell, connect, reconnect, disconnect } = useRFB({
+      view,
+      bellSound: config.bell
     })
+    const { requestFullscreen, exitFullscreen } = useFullscreen(
+      v => store.toggleFullscreen(v)
+    )
 
-    const bell = createBell(config.bell)
-    const onFullscreenChange = () => store.toggleFullscreen(!!fullscreen.element())
-
-    onBeforeMount(() => (windowTitle.value = ''))
-    onBeforeMount(() => window.addEventListener('fullscreenchange', onFullscreenChange))
-    onBeforeUnmount(() => clearTimeout(reconnectTimeout.value))
-    onBeforeUnmount(() => window.removeEventListener('fullscreenchange', onFullscreenChange))
-    onBeforeUnmount(() => {
-      if (rfb.value.disconnect) {
-        rfb.value.disconnect()
-      }
-    })
-
-    return { config, bell, t, textarea, rfb, reconnectTimeout, windowTitle }
+    return {
+      config,
+      bell,
+      view,
+      t,
+      rfb,
+      connect,
+      disconnect,
+      reconnect,
+      windowTitle,
+      requestFullscreen,
+      exitFullscreen
+    }
   },
 
   data() {
@@ -291,10 +294,7 @@ export default {
       if (reconnect) {
         const delay = this.settings.reconnectDelay
         store.addMessage(this.t('messages.reconnecting', { delay }))
-
-        this.reconnectTimeout = setTimeout(() => {
-          this.onConnectRequest()
-        }, delay)
+        this.reconnect(delay, () => this.onConnectRequest())
       }
     },
 
@@ -302,34 +302,29 @@ export default {
       store.addMessage(this.t('messages.connecting'))
       store.connectionActivate(store.state.reconnecting)
 
-      this.rfb = VuenseeRFB.connect({
-        root: this.$refs.view,
-        options: this.settings,
-        bindings: {
-          disconnect: this.onDisconnected,
-          connect: this.onConnected,
-          credentialsrequired: this.onCredentialsRequired,
-          securityfailure: this.onSecurityFailure,
-          desktopname: this.onDesktopName,
-          bell: this.onBell,
-          capabilities: this.onCapabilities,
-          clipboard: this.onClipboard
-        }
+      this.connect(this.settings, {
+        disconnect: this.onDisconnected,
+        connect: this.onConnected,
+        credentialsrequired: this.onCredentialsRequired,
+        securityfailure: this.onSecurityFailure,
+        desktopname: this.onDesktopName,
+        bell: this.onBell,
+        capabilities: this.onCapabilities,
+        clipboard: this.onClipboard
       })
     },
 
     onDisconnectRequest() {
-      clearTimeout(this.reconnectTimeout)
       store.connectionDeactivate()
-      this.rfb.disconnect()
+      this.disconnect()
     },
 
     onMaximize() {
-      fullscreen.request()
+      this.requestFullscreen()
     },
 
     onMinimize() {
-      fullscreen.exit()
+      this.exitFullscreen()
     },
 
     onPower() {
