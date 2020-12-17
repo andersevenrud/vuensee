@@ -1,5 +1,12 @@
 # Changelog
 
+## 2020-12-17 - 0.9.8
+
+* Updated dependencies
+* Updated README.md
+* Added Spanish translations (#4)
+* Some minor codebase improvements
+
 ## 2020-12-16 - 0.9.7
 
 * Added cancel (and esc key trigger) in Login modal
