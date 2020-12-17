@@ -11,6 +11,7 @@
     <div :class="{ [$style.togglerClosed]: !panelOpen }">
       <Button
         :title="t('controls.panel')"
+        :tabindex="panelOpen ? undefined : -1"
         @click="$emit('toggle-panel', $event)"
       >
         <ChevronIcon :dir="panelOpen ? 'left' : 'right'" />
