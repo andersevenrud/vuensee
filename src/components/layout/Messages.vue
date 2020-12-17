@@ -20,11 +20,11 @@
 
 <style module>
 .messages {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   z-index: 1000;
-  min-width: 5rem;
+  min-width: 15rem;
 }
 
 .message {

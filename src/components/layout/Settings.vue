@@ -139,7 +139,7 @@
         type="submit"
         value="Connect"
         :class="$style.hiddenSubmit"
-      />
+      >
     </form>
   </div>
 </template>

@@ -90,10 +90,7 @@ const store = reactive({
  * of the current value
  */
 const toggleable = (k, pre = {}) => (v = !store[k]) =>
-  Object.assign(store, {
-    ...pre,
-    [k]: v
-  })
+  Object.assign(store, { ...pre, [k]: v })
 
 /**
  * Resets states related to connectivity before assigning new ones

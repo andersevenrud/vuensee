@@ -7,8 +7,8 @@
 import RFB from '@novnc/novnc'
 import KeyTable from '@novnc/novnc/core/input/keysym'
 import keysyms from '@novnc/novnc/core/input/keysymdef'
-import { createAudioElement } from './dom'
 import { hasScrollbarGutter, isTouchDevice } from '@novnc/novnc/core/util/browser'
+import { createAudioElement } from './dom'
 
 /**
  * A set of all events we want to subscribe to
