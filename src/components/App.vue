@@ -163,7 +163,7 @@ export default {
     const { t } = useI18n()
     const { windowTitle } = useWindowTitle(config.title)
     const { rfb, bell, connect, reconnect, disconnect } = useRFB({
-      view,
+      root: view,
       bellSound: config.bell
     })
     const { requestFullscreen, exitFullscreen } = useFullscreen(
