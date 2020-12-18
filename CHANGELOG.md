@@ -1,5 +1,13 @@
 # Changelog
 
+## 2020-12-18 - 0.9.9
+
+* Re-arranged some settings
+* Added missing clipboard update event
+* Split out some code to composables
+* Hide overflow on vnc view root element
+* Remove tabIndex on panel toggle button when hidden
+
 ## 2020-12-17 - 0.9.8
 
 * Updated dependencies
