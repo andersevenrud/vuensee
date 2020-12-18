@@ -57,6 +57,7 @@
           v-if="config.features.clipboard"
           v-show="showClipboard"
           :current="clipboard"
+          @update="onClipboardUpdate"
           @clear="onClipboardClear"
         />
 
