@@ -50,14 +50,14 @@ export default {
       sharedMode: 'Shared Mode',
       viewOnly: 'View Only',
       bell: 'System bell sound',
-      dotCursor: 'Show dot when no cursor',
-      clipToWindow: 'Clip to Window'
+      reconnect: 'Automatic Reconnect',
+      reconnectDelay: 'Reconnection Delay (ms)'
     },
     visuals: {
       header: 'Visuals',
+      clipToWindow: 'Clip to Window',
       scalingMode: 'Scaling Mode',
-      quality: 'Quality',
-      compression: 'Compression level'
+      dotCursor: 'Show dot when no cursor'
     },
     connection: {
       header: 'Connection',
@@ -66,9 +66,12 @@ export default {
       port: 'Port',
       path: 'Path',
       password: 'Passsword',
-      ssl: 'Secure socket',
-      reconnect: 'Automatic Reconnect',
-      reconnectDelay: 'Reconnection Delay (ms)'
+      ssl: 'Secure socket'
+    },
+    stream: {
+      header: 'Stream',
+      quality: 'Quality',
+      compression: 'Compression level'
     }
   },
 

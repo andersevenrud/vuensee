@@ -50,14 +50,14 @@ export default {
       sharedMode: 'Modo compartido',
       viewOnly: 'Sólo vista',
       bell: 'Sonido de campana',
-      dotCursor: 'Mostrar punto cuando no hay cursor',
-      clipToWindow: 'Sujetar a la ventana'
+      reconnect: 'Reconectar automáticamente',
+      reconnectDelay: 'Retardo de conexión (milisegundos)'
     },
     visuals: {
       header: 'Vista',
+      clipToWindow: 'Sujetar a la ventana',
       scalingMode: 'Modo de escala',
-      quality: 'Calidad',
-      compression: 'Nivel de compresión'
+      dotCursor: 'Mostrar punto cuando no hay cursor'
     },
     connection: {
       header: 'Conexión',
@@ -66,9 +66,12 @@ export default {
       port: 'Puerto',
       path: 'Ruta',
       password: 'Contraseña',
-      ssl: 'Conexión segura',
-      reconnect: 'Reconectar automáticamente',
-      reconnectDelay: 'Retardo de conexión (milisegundos)'
+      ssl: 'Conexión segura'
+    },
+    stream: {
+      header: 'Corriente',
+      quality: 'Calidad',
+      compression: 'Nivel de compresión'
     }
   },
 

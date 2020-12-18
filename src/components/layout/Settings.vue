@@ -34,16 +34,18 @@
         />
 
         <Checkbox
-          :label="t('settings.session.dotCursor')"
-          :checked="settings.dotCursor"
-          @change="onChange('dotCursor', $event)"
+          :disabled="disabled"
+          :label="t('settings.session.reconnect')"
+          :checked="settings.reconnect"
+          @change="onChange('reconnect', $event)"
         />
 
-        <Checkbox
-          :disabled="settings.scalingMode === 'scale' || !hasScrollbarGutter"
-          :label="t('settings.session.clipToWindow')"
-          :checked="settings.clipToWindow"
-          @change="onChange('clipToWindow', $event)"
+        <Input
+          type="number"
+          :disabled="!settings.reconnect || disabled"
+          :label="t('settings.session.reconnectDelay')"
+          :value="settings.reconnectDelay"
+          @input="onChange('reconnectDelay', $event)"
         />
       </SettingsGroup>
 
@@ -55,31 +57,21 @@
           @change="onChange('scalingMode', $event)"
         />
 
-        <Range
-          min="0"
-          max="9"
-          :label="`${t('settings.visuals.quality')} (${settings.quality})`"
-          :value="settings.quality"
-          @change="onChange('quality', $event)"
+        <Checkbox
+          :disabled="settings.scalingMode === 'scale' || !hasScrollbarGutter"
+          :label="t('settings.visuals.clipToWindow')"
+          :checked="settings.clipToWindow"
+          @change="onChange('clipToWindow', $event)"
         />
 
-        <Range
-          min="0"
-          max="9"
-          :label="`${t('settings.visuals.compression')} (${settings.compression})`"
-          :value="settings.compression"
-          @change="onChange('compression', $event)"
+        <Checkbox
+          :label="t('settings.visuals.dotCursor')"
+          :checked="settings.dotCursor"
+          @change="onChange('dotCursor', $event)"
         />
       </SettingsGroup>
 
       <SettingsGroup :label="t('settings.connection.header')">
-        <Input
-          :disabled="disabled"
-          :label="t('settings.connection.repeaterId')"
-          :value="settings.repeaterId"
-          @input="onChange('repeaterId', $event)"
-        />
-
         <Input
           required
           :disabled="disabled"
@@ -112,26 +104,36 @@
           @input="onChange('password', $event)"
         />
 
+        <Input
+          :disabled="disabled"
+          :label="t('settings.connection.repeaterId')"
+          :value="settings.repeaterId"
+          @input="onChange('repeaterId', $event)"
+        />
+
         <Checkbox
           :disabled="disabled"
           :label="t('settings.connection.ssl')"
           :checked="settings.ssl"
           @change="onChange('ssl', $event)"
         />
+      </SettingsGroup>
 
-        <Checkbox
-          :disabled="disabled"
-          :label="t('settings.connection.reconnect')"
-          :checked="settings.reconnect"
-          @change="onChange('reconnect', $event)"
+      <SettingsGroup :label="t('settings.stream.header')">
+        <Range
+          min="0"
+          max="9"
+          :label="`${t('settings.stream.quality')} (${settings.quality})`"
+          :value="settings.quality"
+          @change="onChange('quality', $event)"
         />
 
-        <Input
-          type="number"
-          :disabled="!settings.reconnect || disabled"
-          :label="t('settings.connection.reconnectDelay')"
-          :value="settings.reconnectDelay"
-          @input="onChange('reconnectDelay', $event)"
+        <Range
+          min="0"
+          max="9"
+          :label="`${t('settings.stream.compression')} (${settings.compression})`"
+          :value="settings.compression"
+          @change="onChange('compression', $event)"
         />
       </SettingsGroup>
 

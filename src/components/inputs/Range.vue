@@ -24,7 +24,6 @@
   -moz-appearance: none;
   width: 1rem;
   height: 2rem;
-  height: 2rem;
   background-color: currentColor;
   cursor: pointer;
   border-radius: 0;

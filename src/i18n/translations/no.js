@@ -50,14 +50,14 @@ export default {
       sharedMode: 'Delt Modus',
       viewOnly: 'Kun Visning',
       bell: 'Bjellelyd fra system',
-      dotCursor: 'Vis dott hvis ingen peker',
-      clipToWindow: 'Klipp til vindu'
+      reconnect: 'Automatisk gjenkobling',
+      reconnectDelay: 'Gjenkoblings forsinkelse (ms)'
     },
     visuals: {
       header: 'Visuelt',
+      clipToWindow: 'Klipp til vindu',
       scalingMode: 'Skaleringsmodus',
-      quality: 'Kvalitet',
-      compression: 'Kompressjonsnivå'
+      dotCursor: 'Vis dott hvis ingen peker'
     },
     connection: {
       header: 'Tilkobling',
@@ -66,9 +66,12 @@ export default {
       port: 'Port',
       path: 'Sti',
       password: 'Passord',
-      ssl: 'Sikker socket',
-      reconnect: 'Automatisk gjenkobling',
-      reconnectDelay: 'Gjenkoblings forsinkelse (ms)'
+      ssl: 'Sikker socket'
+    },
+    stream: {
+      header: 'Strøm',
+      quality: 'Kvalitet',
+      compression: 'Kompressjonsnivå'
     }
   },
 
