@@ -9,6 +9,7 @@ import { createI18n } from 'vue-i18n'
 import en from './translations/en'
 import no from './translations/no'
 import es from './translations/es'
+import sr from './translations/sr-lat'
 import config from '../config'
 
 const i18n = createI18n({
@@ -18,7 +19,8 @@ const i18n = createI18n({
   messages: {
     en,
     no,
-    es
+    es,
+    sr
   }
 })
 
