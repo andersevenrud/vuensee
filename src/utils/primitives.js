@@ -16,7 +16,7 @@ export const camelToSnake = str => str
 /**
  * Checks if value of any type is true(-ish)
  */
-export const isTrue = str => ['1', 'on', 'true']
+export const isTrue = str => ['1', 'on', 'true', 'yes']
   .includes(String(str).toLowerCase())
 
 /**
