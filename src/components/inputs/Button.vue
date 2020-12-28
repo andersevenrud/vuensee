@@ -9,6 +9,7 @@
     type="button"
     v-bind="$attrs"
     :class="{ [$style.button]: true, [$style.active]: active }"
+    @contextmenu.prevent
   >
     <slot />
   </button>

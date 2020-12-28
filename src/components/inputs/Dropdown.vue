@@ -6,7 +6,7 @@
 -->
 <template>
   <div :class="$style.dropdown">
-    <label>
+    <label @contextmenu.prevent>
       <span v-if="label">
         {{ label }}
       </span>

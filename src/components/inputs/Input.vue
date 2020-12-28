@@ -7,7 +7,10 @@
 <template>
   <div :class="$style.input">
     <label>
-      <span v-if="label">
+      <span
+        v-if="label"
+        @contextmenu.prevent
+      >
         {{ label }}
       </span>
       <input

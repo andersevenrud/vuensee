@@ -6,7 +6,7 @@
 -->
 <template>
   <div :class="$style.range">
-    <label>
+    <label @contextmenu.prevent>
       <span>
         {{ label }}
       </span>

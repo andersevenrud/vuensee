@@ -6,7 +6,10 @@
 -->
 <template>
   <div :class="$style.checkbox">
-    <label :class="{ [$style.disabled]: $attrs.disabled }">
+    <label
+      :class="{ [$style.disabled]: $attrs.disabled }"
+      @contextmenu.prevent
+    >
       <input
         v-bind="$attrs"
         type="checkbox"

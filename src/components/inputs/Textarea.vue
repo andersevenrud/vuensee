@@ -7,7 +7,10 @@
 <template>
   <div :class="$style.textarea">
     <label>
-      <span v-if="label">
+      <span
+        v-if="label"
+        @contextmenu.prevent
+      >
         {{ label }}
       </span>
       <textarea v-bind="$attrs" />

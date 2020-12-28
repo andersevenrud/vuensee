@@ -9,7 +9,7 @@
     ref="details"
     :class="$style.details"
   >
-    <summary>
+    <summary @contextmenu.prevent>
       {{ label }}
     </summary>
 

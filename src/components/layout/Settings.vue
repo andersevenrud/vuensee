@@ -42,6 +42,8 @@
 
         <Input
           type="number"
+          min="100"
+          max="99999"
           :disabled="!settings.reconnect || disabled"
           :label="t('settings.session.reconnectDelay')"
           :value="settings.reconnectDelay"
