@@ -1,5 +1,10 @@
 # Changelog
 
+## 2020-12-28 - 0.9.10
+
+* Added serbian latin translation
+* Some minor fixes
+
 ## 2020-12-18 - 0.9.9
 
 * Re-arranged some settings

@@ -1,6 +1,6 @@
 {
   "name": "vuensee",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
