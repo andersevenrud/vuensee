@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+
 const pointsMap = {
   down: '6 9 12 15 18 9',
   up: '18 15 12 9 6 15',
@@ -26,9 +28,8 @@ export default {
     }
   },
   setup(props) {
-    return {
-      points: pointsMap[props.dir]
-    }
+    const points = computed(() => pointsMap[props.dir])
+    return { points }
   }
 }
 </script>
