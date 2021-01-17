@@ -1,5 +1,9 @@
 # Changelog
 
+## 2021-01-18 - 0.9.11
+
+* Fixed panel toggle controls icon
+
 ## 2020-12-28 - 0.9.10
 
 * Added serbian latin translation
