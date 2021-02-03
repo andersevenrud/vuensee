@@ -1,5 +1,9 @@
 # Changelog
 
+## 2021-02-03 - 0.9.12
+
+* Updated dependencies
+
 ## 2021-01-18 - 0.9.11
 
 * Fixed panel toggle controls icon
