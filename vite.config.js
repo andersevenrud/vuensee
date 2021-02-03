@@ -1,8 +1,15 @@
+import vue from '@vitejs/plugin-vue'
+
 const config = {
   base: '',
-  terserOptions: {
-    format: {
-      comments: /^!/
+  plugins: [
+    vue()
+  ],
+  build: {
+    terserOptions: {
+      format: {
+        comments: /^!/
+      }
     }
   },
   optimizeDeps: {
